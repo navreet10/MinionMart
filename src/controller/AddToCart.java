@@ -50,6 +50,7 @@ public class AddToCart extends HttpServlet {
 		Product prod = CartDao.getProduct(prodId);
 		cart.setProduct(prod);
 		CartDao.insertCart();
+		
 		request.getRequestDispatcher("Shopping.jsp").forward(request, response);
 		} catch (NullPointerException e) {
 			request.setAttribute("message", "Credentials are wrong!!");

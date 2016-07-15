@@ -12,10 +12,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Shopping</title>
+     <script  src="js/shopping.js"></script>
     <link href="css/sidebar.css" rel="stylesheet">
     <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/mycss.css" />
+    
 </head>
 <body>
     
@@ -35,17 +37,17 @@
   </div>
 </nav>
  
- <form action="ShoppingServlet"   id="myform" name="myform" >               
+ <form action="ShoppingServlet" method="get"  id="myform" name="myform" >               
    
-    <div id="wrapper" class="toggled">
+    <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
         
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
             <c:forEach var="type" items="${Prodtype}">
                 <li class="active">
-                
-                    <a href="ShoppingServlet/typeid=${type.typid}">${type.typename }</a>
+             
+                    <a href=" ShoppingServlet?typeid=${type.typeid}">${type.typename }</a>
                        <ul class="nav-pills nav-stacked" style="list-style-type:none;">       
                     </ul>
                 </li>
@@ -57,18 +59,37 @@
         <!-- Page Content -->
         
       
-        <div id="page-content-wrapper">
-            <div class="container-fluid xyz">
+        <div class="container">
+           <div id="page-content-wrapper">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        
-                    
+                      <c:forEach var="product" items="${Products}">
+                      
+                      <div><img src= ${product.produrl } ></img></div>
+                     
+                      <div><a href="ShoppingServlet?productid=${product.prodid}"> ${product.prodname}</a></div>
+                                
+                      <div>Price: ${product.prodprice }</div>
+                      
+                      <div>
+                      
+                      
+                       
+                      <input type="submit" class="addCart" name="method" id="AddtoCart${product.prodid}" value="AddtoCart" class="button"/>
+                      <input type="submit" class="addWish" name="method" id="AddtoWish${product.prodid}" value="Addto Wish" class="button"/></div>
+                      
+                      </c:forEach>
                     </div>
                 </div>
             </div>
+        </div> 
+                        
+       </div>             
+                    
         </div>
         <!-- /#page-content-wrapper -->
-    </div>
+    
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>

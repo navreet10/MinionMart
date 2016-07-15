@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/mycss.css" />
     
 </head>
-<body>
+<body class=" body placeholder">
     
  
     <nav class="navbar navbar-default" style="background-color: #01579b">
@@ -58,7 +58,8 @@
          
         </div><!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        
+   
+<div style="background-color: white;" class="panel-body">
       
         <div class="container" name="productlist" id="productlist">
            <div id="page-content-wrapper">
@@ -69,14 +70,17 @@
                      
                       <div><img src= "${product.produrl }.jpg" width="200px" height="200px" ></img></div>
                      
+                      
+                      
                       <div id="productdet"><a  href="ShoppingServlet?productid=<c:out value="${product.prodid}"/>"> ${product.prodname}</a></div>
+                      
+                      <div>Description: ${product.proddesc }</div>            
                                 
                       <div>Price: ${product.prodprice }</div>
                       
                       <div>
                       
-                      
-                       
+                        
                       <input type="button" class="addCart" name="AddtoCart${product.prodid}" id="AddtoCart${product.prodid}" value="AddtoCart"/>
                       <input type="button" class="addWish" name="AddtoWish${product.prodid}" id="AddtoWish${product.prodid}" value="AddtoWishList"/></div>
                       
@@ -88,17 +92,8 @@
                         
        </div>  
     
-       <div class="container" id="productdetails" >
-       
-       <div><img src= "${myproductimage }.jpg" width="200px" height="200px" ></img></div>
-                     
-       <div>Product name: ${myproductname}</div>
-       <div>Product description: ${myproductdesc}</div>
-       <div>Product type: ${myproducttype}</div>                          
-       <div>Product Price: ${myproductprice}</div>
-       
-       </div>           
-                    
+      
+    </div>                
        
         <!-- /#page-content-wrapper -->
     
@@ -108,6 +103,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="js/sidebarmenu.js"></script>
     <script  src="js/shopping.js"></script>
+    <script  src="js/color.js"></script>
     </form>
 </body>
 </html>

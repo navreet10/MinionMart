@@ -31,7 +31,7 @@ public class CartDao {
 
 	public static Product getProduct(String prodId) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-<<<<<<< HEAD
+
         String qString = "select b from Product b where b.prodid = :prodId";
         
         Product prod = new Product();
@@ -45,20 +45,9 @@ public class CartDao {
         finally{
                 em.close();
             }
-=======
-		String qString = "select b from Product b where b.prodid = :prodId";
 
-		Product prod = new Product();
-		try {
-			TypedQuery<Product> query = em.createQuery(qString, Product.class);
-			query.setParameter("prodId", Long.parseLong(prodId));
-			prod = query.getSingleResult();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			em.close();
-		}
->>>>>>> 632c45d90545b63ae4b4cf8c0690d6eb995a84e5
+		
+
 		return prod;
 	}
 

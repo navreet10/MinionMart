@@ -111,7 +111,7 @@ public class Dataget {
 
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
-		String qString = "Select p from Product p where p.prodtype.typeid=: typeid";
+		String qString = "Select p from Product p where p.prodtype.typeid=:typeid";
 
 		Query q = em.createQuery(qString);
 		q.setParameter("typeid", typeid);

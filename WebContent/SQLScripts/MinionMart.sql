@@ -59,7 +59,7 @@ create table minionorder (
 orderid integer primary key,
 ordername varchar2(100) not null,
 prodId integer not null,
-qtty number default 1 not null,
+qtty int default 1 not null,
 CONSTRAINT fk_order_prodid FOREIGN KEY (prodId) references product(prodId)
 );
 
@@ -77,7 +77,7 @@ create table cart (
 cartid integer primary key,
 userId integer not null,
 prodId integer not null,
-qtty number default 1  not null,
+qtty int default 1  not null,
 active integer default 0,
 CONSTRAINT fk_cart_prodId FOREIGN KEY (prodId) references product(prodId),
 CONSTRAINT fk_cart_userId FOREIGN KEY (userid) references minionuser(userId)

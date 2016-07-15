@@ -39,7 +39,7 @@
  
  <form action="ShoppingServlet" method="get"  id="myform" name="myform" >               
    
-    <div id="wrapper">
+  
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
         
@@ -47,9 +47,9 @@
             <c:forEach var="type" items="${Prodtype}">
                 <li class="active">
              
-                    <a href=" ShoppingServlet?typeid=${type.typeid}">${type.typename }</a>
-                       <ul class="nav-pills nav-stacked" style="list-style-type:none;">       
-                    </ul>
+                    <a href="ShoppingServlet?typeid=${type.typeid}">${type.typename }</a>
+                            
+                    
                 </li>
 
                 </c:forEach>
@@ -65,10 +65,10 @@
                 <div class="row">
                     <div class="col-lg-12">
                       <c:forEach var="product" items="${Products}">
-                      
+                     
                       <div><img src= ${product.produrl } ></img></div>
                      
-                      <div><a href="ShoppingServlet?productid=${product.prodid}"> ${product.prodname}</a></div>
+                      <div><a href="ShoppingServlet?productid=<c:out value="${product.prodid}"/>"> ${product.prodname}</a></div>
                                 
                       <div>Price: ${product.prodprice }</div>
                       
@@ -76,8 +76,8 @@
                       
                       
                        
-                      <input type="submit" class="addCart" name="method" id="AddtoCart${product.prodid}" value="AddtoCart" class="button"/>
-                      <input type="submit" class="addWish" name="method" id="AddtoWish${product.prodid}" value="Addto Wish" class="button"/></div>
+                      <input type="button" class="addCart" name="AddtoCart${product.prodid}" id="AddtoCart${product.prodid}" value="AddtoCart"/>
+                      <input type="button" class="addWish" name="AddtoWish${product.prodid}" id="AddtoWish${product.prodid}" value="AddtoWishList"/></div>
                       
                       </c:forEach>
                     </div>
@@ -87,7 +87,7 @@
                         
        </div>             
                     
-        </div>
+       
         <!-- /#page-content-wrapper -->
     
     <!-- /#wrapper -->
@@ -95,6 +95,7 @@
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="js/sidebarmenu.js"></script>
+    <script  src="js/shopping.js"></script>
     </form>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class CartDao {
 
 	public static Product getProduct(String prodId) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        String qString = "select b from product b where b.prodid = :prodId";
+        String qString = "select b from Product b where b.prodid = :prodId";
         
         Product prod = new Product();
         try{

@@ -112,37 +112,7 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
-					<br>
-					<a id="showReviews">Items in cart:</a>
-					<div id= "reviewsDiv">
-						
-							
-								<c:set var="activity" scope="session" value="${activity}" />
-								<c:if test="${activity != null}">
-									<div class="panel-group">
-										<c:forEach var="activity" items="${activity}">
-											<div class="panel panel-primary">
-												<div class="panel-heading">
-													<table width="100%">
-														<tr>
-															<td align="left">${activity.restaurant.name}</td>
-															<td align="right"><fmt:formatDate type="date"
-																						value="${activity.daterate}" /></td>
-														</tr>
-													</table>
-
-												</div>
-												<div class="panel-body" style="background-image: url('../images/rt${activity.restaurant.id}.jpeg');">
-													<c:out value="${activity.review}"></c:out>
-												</div>
-											</div>
-										</c:forEach>
-									</div>
-								</c:if>
-								<c:if test="${activity == null}">
-									<h2>You are not logged in!!</h2>
-								</c:if>
-							</div>
+					
 					<h3>Items in cart:</h3>
 							<form id="cart" action="Checkout" method="post">
 							<div>

@@ -2,7 +2,6 @@ package DBUtil;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.*;
 
 public class DBUtil {
 	

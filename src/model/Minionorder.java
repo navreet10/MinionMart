@@ -21,7 +21,7 @@ public class Minionorder implements Serializable {
 
 	private String ordername;
 
-	private BigDecimal qtty;
+	private long qtty;
 
 	//bi-directional many-to-one association to Product
 	@ManyToOne
@@ -47,11 +47,11 @@ public class Minionorder implements Serializable {
 		this.ordername = ordername;
 	}
 
-	public BigDecimal getQtty() {
+	public long getQtty() {
 		return this.qtty;
 	}
 
-	public void setQtty(BigDecimal qtty) {
+	public void setQtty(long qtty) {
 		this.qtty = qtty;
 	}
 

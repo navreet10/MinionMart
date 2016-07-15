@@ -30,15 +30,14 @@
     <ul class="nav navbar-nav">
      <li><a href="userprofile.jsp" style="color: #fff; font-weight: bold;font-size:20px"><img src= ${ images}  width="20" height="20"></img> ${username}</a></li>
       <li ><a href="home.jsp" style="color: #fff; font-weight: bold;font-size:20px" class="active">Home</a></li>
-      <li><a href="<%=request.getContextPath() %>/ViewWish" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Wish List</a></li>
-      <li><a href="<%=request.getContextPath() %>/ViewCart" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Cart</a></li>
-      <li ><a href="<%=request.getContextPath() %>/Logout"  style="color: #fff; font-weight: bold;font-size:20px">Log Out</a></li>
+      <li><a href="newsfeed.jsp" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">News Feed</a></li>
+      <li ><a href="<%=request.getContextPath() %>/logout"  style="color: #fff; font-weight: bold;font-size:20px">Log Out</a></li>
     </ul>
   
   </div>
 </nav>
  
- <form action="ShoppingServlet" method="get"  id="myform" name="myform" >               
+ <form action="ProductDetailsServlet" method="get"  id="myform" name="myform" >               
    
   
         <!-- Sidebar -->
@@ -49,8 +48,7 @@
                 <li class="active">
              
                     <a href="ShoppingServlet?typeid=${type.typeid}">${type.typename }</a>
-                            
-                    
+                                
                 </li>
 
                 </c:forEach>
@@ -58,39 +56,11 @@
          
         </div><!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        
-      
-        <div class="container" name="productlist" id="productlist">
-           <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                      <c:forEach var="product" items="${Products}">
-                     
-                      <div><img src= "${product.produrl }.jpg" width="200px" height="200px" ></img></div>
-                     
-                      <div id="productdet"><a  href="ShoppingServlet?productid=<c:out value="${product.prodid}"/>"> ${product.prodname}</a></div>
-                                
-                      <div>Price: ${product.prodprice }</div>
-                      
-                      <div>
-                      
-                      
-                       
-                      <input type="button" class="addCart" name="AddtoCart${product.prodid}" id="AddtoCart${product.prodid}" value="AddtoCart"/>
-                      <input type="button" class="addWish" name="AddtoWish${product.prodid}" id="AddtoWish${product.prodid}" value="AddtoWishList"/></div>
-                      
-                      </c:forEach>
-                    </div>
-                </div>
-            </div>
-        </div> 
-                        
-       </div>  
-    
+          
+ 
        <div class="container" id="productdetails" >
        
-       <div><img src= "${myproductimage }.jpg" width="200px" height="200px" ></img></div>
+       <div><img src= "${myproductimage}.jpg" width="200px" height="200px" ></img></div>
                      
        <div>Product name: ${myproductname}</div>
        <div>Product description: ${myproductdesc}</div>

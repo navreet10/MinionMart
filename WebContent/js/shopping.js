@@ -11,7 +11,7 @@ $(document).ready(function() {
            data: dataString,
            success: function(data){
         	   alert("Add to cart successfully!");
-               window.location = 'http://localhost:8081/MinionMart/Shopping.jsp';
+               window.location = 'http://localhost:8080/MinionMart/Shopping.jsp';
              }                
 			  });
 		

@@ -30,8 +30,9 @@
     <ul class="nav navbar-nav">
      <li><a href="userprofile.jsp" style="color: #fff; font-weight: bold;font-size:20px"><img src= ${ images}  width="20" height="20"></img> ${username}</a></li>
       <li ><a href="home.jsp" style="color: #fff; font-weight: bold;font-size:20px" class="active">Home</a></li>
-      <li><a href="newsfeed.jsp" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">News Feed</a></li>
-      <li ><a href="<%=request.getContextPath() %>/logout"  style="color: #fff; font-weight: bold;font-size:20px">Log Out</a></li>
+      <li><a href="<%=request.getContextPath() %>/ViewWish" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Wish List</a></li>
+      <li><a href="<%=request.getContextPath() %>/ViewCart" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Cart</a></li>
+      <li ><a href="<%=request.getContextPath() %>/Logout"  style="color: #fff; font-weight: bold;font-size:20px">Log Out</a></li>
     </ul>
   
   </div>

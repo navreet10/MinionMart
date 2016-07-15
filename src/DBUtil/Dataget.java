@@ -120,6 +120,8 @@ public class Dataget {
 		return post;
 	}
 
+		   
+
 	public static List<Product> getProductsbytypeid(long typeid) {
 
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -127,7 +129,7 @@ public class Dataget {
 		String qString = "Select p from Product p where p.prodtype.typeid=: typeid";
 
 		Query q = em.createQuery(qString);
-		q.setParameter("type", typeid);
+		q.setParameter("typeid", typeid);
 		List<Product> post = new ArrayList<Product>();
 
 		try {
@@ -136,6 +138,7 @@ public class Dataget {
 		} catch (NoResultException e) {
 			System.out.println(e);
 		} catch (Exception e) {
+
 
 			e.printStackTrace();
 		} finally {
@@ -223,7 +226,7 @@ public class Dataget {
 	    {
 	        EntityManager em = DBUtil.getEmFactory().createEntityManager();
 	        Product product = null;
-	        String qString = "select b from Product b where b.prodid = :productid";
+	        String qString = "select b from Product b where b.prodid =:productid";
 	        
 	        try{
 	            TypedQuery<Product> query = em.createQuery(qString,Product.class);

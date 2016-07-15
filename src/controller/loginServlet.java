@@ -2,10 +2,6 @@ package controller;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -39,8 +35,17 @@ public class loginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
 		
-		HttpSession session = request.getSession();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("in");
+		
+HttpSession session = request.getSession();
 		
 		EntityManager em=DBUtil.getEmFactory().createEntityManager();
 		
@@ -64,6 +69,7 @@ public class loginServlet extends HttpServlet {
 			{	
 				List<model.Prodtype> types=Dataget.getProdtype();	
 				List<model.Product> Products=Dataget.getProducts();
+				session.setAttribute("user", user);
 				session.setAttribute("userid", user.getUserid());
 				session.setAttribute("useremail",user.getUseremail());
 				session.setAttribute("username", user.getUsername());
@@ -104,15 +110,6 @@ public class loginServlet extends HttpServlet {
 			
 		}
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		
-		
 		
 	}
 	

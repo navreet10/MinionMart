@@ -38,25 +38,21 @@ public class ShoppingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String method = request.getParameter("method");
 		String typeid = (String)request.getParameter("typeid");
 		String productid = (String)request.getParameter("productid");
 		
 		
 		
-		if(typeid.equals(null)!=true)
+		if(typeid!=null)
 		{
+			System.out.println(typeid);
 			long longtypeid=Dataget.getprodtypeid(typeid);	
 			List<model.Product> Products=Dataget.getProductsbytypeid(longtypeid);
 			session.setAttribute("Products",Products );
 			request.getRequestDispatcher("/Shopping.jsp").forward(request, response);
 		}
-		else if(method.equals(null)!=true)
-		{
-			
-			
-		}
-		else if(productid.equals(null)!=true)
+		
+		if(productid!=null)
 		{
 			long longproductid=Dataget.getprodid(productid);
 			

@@ -1,31 +1,30 @@
 package controller;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import dao.CartDao;
-import model.Cart;
+import DBUtil.Dataget;
 import model.Minionuser;
 import model.Product;
+import model.Wishlist;
 
 /**
- * Servlet implementation class ViewCart
+ * Servlet implementation class AddToWish
  */
-@WebServlet("/ViewCart")
-public class ViewCart extends HttpServlet {
+@WebServlet("/AddToWish")
+public class AddToWish extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public ViewCart() {
+    public AddToWish() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -33,28 +32,31 @@ public class ViewCart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			
-			List<Cart> items = CartDao.getCartItems();
-			// set things for shopping
-			request.setAttribute("items", items);
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			request.setAttribute("message", "Something went wrong!!");
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("message", "Something went wrong!!");
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
-		}
+HttpSession session = request.getSession();
+		
+		String prodid=(String)request.getParameter("prodId");
+		long longprodid=Dataget.getprodid(prodid);
+		String userid=(String)session.getAttribute("userid");
+		long longuserid=Dataget.getuserid(userid);
+		Product prod=Dataget.getproductbyproductid(longprodid);
+		Minionuser user=Dataget.getuserbyuserid(longuserid);
+		
+		Wishlist wish=new Wishlist();
+		
+		wish.setMinionuser(user);
+		wish.setProduct(prod);
+		
+		Dataget.insert(wish);
+		
+		request.getRequestDispatcher("/Shopping.jsp").forward(request, response);
 	}
 
 }

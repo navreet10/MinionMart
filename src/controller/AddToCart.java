@@ -21,42 +21,52 @@ import model.Product;
 public class AddToCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public AddToCart() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public AddToCart() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-		Minionuser minionuser = (Minionuser) request.getSession().getAttribute("user");
-		String prodId = request.getParameter("prodId");
-		String qtty = request.getParameter("qtty");
-		Cart cart = new Cart();
-		cart.setActive(new BigDecimal(0));
-		cart.setMinionuser(minionuser);
-		cart.setQtty(new BigDecimal(qtty));
-		Product prod = CartDao.getProduct(prodId);
-		cart.setProduct(prod);
-		CartDao.insertCart();
-		request.getRequestDispatcher("Shopping.jsp").forward(request, response);
+			Minionuser minionuser = (Minionuser) request.getSession().getAttribute("user");
+			String prodId = request.getParameter("prodId");
+			String qtty = request.getParameter("1");
+			Cart cart = new Cart();
+			cart.setActive(new BigDecimal(0));
+			cart.setMinionuser(minionuser);
+			cart.setQtty(Long.parseLong(qtty));
+			Product prod = CartDao.getProduct(prodId);
+			cart.setProduct(prod);
+			CartDao.insertCart(cart);
+			// set things for shopping
+			request.setAttribute("message", "Added to cart successfully");
+			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
+
 		} catch (NullPointerException e) {
-			request.setAttribute("message", "Credentials are wrong!!");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			e.printStackTrace();
+			request.setAttribute("message", "Something went wrong!!");
+			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+			request.setAttribute("message", "Something went wrong!!");
+			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
+		}
 	}
 
 }

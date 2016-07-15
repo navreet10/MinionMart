@@ -59,11 +59,13 @@ HttpSession session = request.getSession();
 		try
 		{
 			
-			String email= request.getParameter("email");
+			String name= request.getParameter("email");
+			System.out.println(name);
 			String password=request.getParameter("password");
-			model.Minionuser user=Dataget.getUserByEmail(email);
+			System.out.println(password);
+			model.Minionuser user=Dataget.getUserByName(name);
 			
-			if(Dataget.isValidUser(email,password))
+			if(Dataget.isValidUser(name,password))
 			{	
 				List<model.Prodtype> types=Dataget.getProdtype();	
 				List<model.Product> Products=Dataget.getProducts();

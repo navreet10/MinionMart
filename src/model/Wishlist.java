@@ -14,7 +14,7 @@ public class Wishlist implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="WISHLIST_WISHID_GENERATOR", sequenceName="WISHLIST_ID_SEQ")
+	@SequenceGenerator(name="WISHLIST_WISHID_GENERATOR", sequenceName="WISHLIST_ID_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="WISHLIST_WISHID_GENERATOR")
 	private long wishid;
 

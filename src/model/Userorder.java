@@ -15,7 +15,7 @@ public class Userorder implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USERORDER_USERORDERID_GENERATOR", sequenceName="USERORDER_ID_SEQ")
+	@SequenceGenerator(name="USERORDER_USERORDERID_GENERATOR", sequenceName="USERORDER_ID_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERORDER_USERORDERID_GENERATOR")
 	private long userorderid;
 

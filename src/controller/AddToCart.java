@@ -42,7 +42,7 @@ public class AddToCart extends HttpServlet {
 		try {
 		Minionuser minionuser = (Minionuser) request.getSession().getAttribute("user");
 		String prodId = request.getParameter("prodId");
-		String qtty = request.getParameter("qtty");
+		String qtty = request.getParameter("1");
 		Cart cart = new Cart();
 		cart.setActive(new BigDecimal(0));
 		cart.setMinionuser(minionuser);

@@ -59,7 +59,7 @@ create table minionorder (
 orderid integer primary key,
 ordername varchar2(100) not null,
 prodId integer not null,
-qtty int default 1 not null,
+qtty number default 1 not null,
 CONSTRAINT fk_order_prodid FOREIGN KEY (prodId) references product(prodId)
 );
 
@@ -77,7 +77,7 @@ create table cart (
 cartid integer primary key,
 userId integer not null,
 prodId integer not null,
-qtty int default 1  not null,
+qtty number default 1  not null,
 active integer default 0,
 CONSTRAINT fk_cart_prodId FOREIGN KEY (prodId) references product(prodId),
 CONSTRAINT fk_cart_userId FOREIGN KEY (userid) references minionuser(userId)
@@ -95,12 +95,12 @@ CONSTRAINT fk_wish_userId FOREIGN KEY (userid) references minionuser(userId)
 
 
 --Insertion for minionuser
-Insert into minionuser (userId,username,pwd,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'Admin','admin123!','admin@gmail.com','2301 Street NW,Washington DC',20037); 
-Insert into minionuser (userId,username,pwd,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'Can','can123!','can@gmail.com','24 Street NW,RockVille,MD',20804);
-Insert into minionuser (userId,username,pwd,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'dan','dan123!','dan@gmail.com','23 Street NW,Washington DC',20037);
-Insert into minionuser (userId,username,pwd,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'van','van123!','van@gmail.com','25 Street NW,Washington',20008);
-Insert into minionuser (userId,username,pwd,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'tan','tan123!','tan@gmail.com','42 Street SW,Califorina',19080);
-Insert into minionuser (userId,username,pwd,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'pan','pan123!','pan@gmail.com','57 Street,Califorina',20080);
+Insert into minionuser (userId,username,pwd,pwdSecure,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'Admin','d3c0c099bb4b9ae5f831478f351771f1f7c2355c9e12f4ad063d6acf21237ab3','r6BedpL38UXGemj2etQSYzvxYH7KmBAv8/Fl9lcUSS8=','admin@gmail.com','2301 Street NW,Washington DC',20037); 
+Insert into minionuser (userId,username,pwd,pwdSecure,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'Can','9abf616d1b24b2b27a398ca03ccf6e2f15c99155d51a99888b77af5da6cf1386','bThvDNH0L6ImIR0SQrqvQgI5WzBmttJcyo1JSx0qUP0=','can@gmail.com','24 Street NW,RockVille,MD',20804);
+Insert into minionuser (userId,username,pwd,pwdSecure,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'dan','b9e48843592eae14619de26718c36b3f8c6b1f7638ac9a39d92e2b57136d70e9','OpYLbtIup1jtYl4JZ2ZvZVYXxz7AGPg/uFzerSxj/cM=','dan@gmail.com','23 Street NW,Washington DC',20037);
+Insert into minionuser (userId,username,pwd,pwdSecure,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'van','36dcca83c2063c062591bb6e4f8c82ebce0b38ffddfe36b0a694e9895860ef7c','kdlO2qB6KXCb50SeiZXjNPqwVnG/R/z4A8nAgxDgJk0=','van@gmail.com','25 Street NW,Washington',20008);
+Insert into minionuser (userId,username,pwd,pwdSecure,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'tan','c3d3ba4572d424dd11b90407fa0093ea6d9e63252cba2c52512564bb0f6c5bbb','bWu0ANGClELPl4noBEeYaA3SSTupPWrQG09aDz+xdgM=','tan@gmail.com','42 Street SW,Califorina',19080);
+Insert into minionuser (userId,username,pwd,pwdSecure,useremail,useraddress,userzip) values (minionuser_id_seq.nextval,'pan','dbe7744910020c116583c7e907486e9a990f37baad23b8973aad61c05569e417','mp4Lph/10YMlFdWdYRV2wS+HGEv4Jm8zioBRJGgiztM=','pan@gmail.com','57 Street,Califorina',20080);
 
 select * from minionuser;
 

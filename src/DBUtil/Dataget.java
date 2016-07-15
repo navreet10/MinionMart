@@ -33,20 +33,35 @@ public class Dataget {
 		}
 		return user;
 	}
+	
+	public static Minionuser getUserByName(String name) {
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		String qString = "Select u from Minionuser u where u.username = :name";
+		TypedQuery<Minionuser> q = em.createQuery(qString, Minionuser.class);
+		q.setParameter("name", name);
+		Minionuser user = null;
+		try {
+			user = q.getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} finally {
+			em.close();
+		}
+		return user;
+	}
 
-	public static boolean isValidUser(String email, String pass) throws NoSuchAlgorithmException {
+	public static boolean isValidUser(String name, String pass) throws NoSuchAlgorithmException {
 		boolean result = false;
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		String qString = "Select b from Minionuser b " + "where b.useremail=:email";
+		String qString = "Select b from Minionuser b where b.username = :name";
 		try {
 			TypedQuery<Minionuser> q = em.createQuery(qString, Minionuser.class);
 
-			q.setParameter("email", email);
-			q.setParameter("userpass", pass);
+			q.setParameter("name", name);
 			Minionuser user = q.getSingleResult();
 			String hashCode = PasswordUtil.hashPasswordPlusSalt(pass, user.getPwdsecure());
-
-			if (user.getPwd() == hashCode) {
+			System.out.println(hashCode);
+			if (user.getPwd().equals(hashCode)) {
 				result = true;
 			}
 		} catch (Exception e) {

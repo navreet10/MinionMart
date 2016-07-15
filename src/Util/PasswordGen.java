@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class PasswordGen {
 	public static void main(String[] args) throws NoSuchAlgorithmException {
-		String salt1=PasswordUtil.getSalt();
+	/*	String salt1=PasswordUtil.getSalt();
 		String salt2=PasswordUtil.getSalt();
 		String salt3=PasswordUtil.getSalt();
 		String salt4=PasswordUtil.getSalt();
@@ -16,11 +16,11 @@ public class PasswordGen {
 		System.out.println(salt3);
 		System.out.println(salt4);
 		System.out.println(salt5);
-		System.out.println(salt6);
+		System.out.println(salt6);*/
 		
-		String pwd1= PasswordUtil.hashPasswordPlusSalt("admin123!", salt1);
+		String pwd1= PasswordUtil.hashPasswordPlusSalt("admin123!", "r6BedpL38UXGemj2etQSYzvxYH7KmBAv8/Fl9lcUSS8=");
 
-		String pwd2= PasswordUtil.hashPasswordPlusSalt("can123!", salt2);
+		/*String pwd2= PasswordUtil.hashPasswordPlusSalt("can123!", "");
 
 		String pwd3= PasswordUtil.hashPasswordPlusSalt("dan123!", salt3);
 
@@ -35,7 +35,9 @@ public class PasswordGen {
 		System.out.println(pwd3);
 		System.out.println(pwd4);
 		System.out.println(pwd5);
-		System.out.println(pwd6);
+		System.out.println(pwd6);*/
+		
+		System.out.println(pwd1);
 		
 		
 	}

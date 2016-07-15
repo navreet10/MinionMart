@@ -26,8 +26,8 @@ create sequence  userorder_id_seq start with 1 increment by 1 nocache;
 create table minionuser (
 userId integer primary key,
 username varchar2(50) unique not null,
-pwd varchar2(50) not null,
-pwdSecure varchar2(50),
+pwd varchar2(200) not null,
+pwdSecure varchar2(200),
 useremail varchar2(100) not null,
 useraddress varchar2(200) not null,
 userzip varchar(10) not null
@@ -129,7 +129,7 @@ Insert into product (prodId,prodname,proddesc,produrl,prodprice,TYPEID) values (
 Insert into product (prodId,prodname,proddesc,produrl,prodprice,TYPEID) values (product_id_seq.nextval,'Cooking books','Indian Cooking recipies','cookingbook',50,3);
 
 Insert into product (prodId,prodname,proddesc,produrl,prodprice,TYPEID) values (product_id_seq.nextval,'Chips','Lays','images/chips',10,4);
-Insert into product (prodId,prodname,proddesc,produrl,prodprice,TYPEID) values (product_id_seq.nextval,'Drinks','Beer, Wine',,'images/drinks',20,4);
+Insert into product (prodId,prodname,proddesc,produrl,prodprice,TYPEID) values (product_id_seq.nextval,'Drinks','Beer, Wine','images/drinks',20,4);
 Insert into product (prodId,prodname,proddesc,produrl,prodprice,TYPEID) values (product_id_seq.nextval,'Vitamins','Vitamin D','images/vitamins',30,4);
 
 Insert into product (prodId,prodname,proddesc,produrl,prodprice,TYPEID) values (product_id_seq.nextval,'Iphone 6s','Latest Model','images/Iphone',750,5);

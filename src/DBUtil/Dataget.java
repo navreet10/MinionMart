@@ -1,12 +1,7 @@
 package DBUtil;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,155 +9,126 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
+import Util.PasswordUtil;
 import model.Cart;
 import model.Minionuser;
 import model.Prodtype;
 import model.Product;
 import model.Wishlist;
 
-
-
 public class Dataget {
-	
-	public static Minionuser getUserByEmail(String email)
-	{
-		EntityManager em=DBUtil.getEmFactory().createEntityManager();
-		String qString="Select u from Minionuser u "+"where u.useremail=:useremail";
-		TypedQuery<Minionuser> q=em.createQuery(qString,Minionuser.class);
+
+	public static Minionuser getUserByEmail(String email) {
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		String qString = "Select u from Minionuser u " + "where u.useremail=:useremail";
+		TypedQuery<Minionuser> q = em.createQuery(qString, Minionuser.class);
 		q.setParameter("useremail", email);
-		Minionuser user=null;
-		try
-		{
-			user=q.getSingleResult();
-		}catch(NoResultException e)
-		{
-		   System.out.println(e);
-		}finally
-		{
+		Minionuser user = null;
+		try {
+			user = q.getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} finally {
 			em.close();
 		}
 		return user;
 	}
-	public static boolean isValidUser(String email, String pass)
-	{
-		EntityManager em=DBUtil.getEmFactory().createEntityManager();
-		String qString="Select count(b.userid) from Minionuser b "
-				+"where b.useremail=:useremail"
-				+ " and b.pwd=:userpass";
-		TypedQuery<Long> q=em.createQuery(qString,Long.class);
-		boolean result=false;
-		q.setParameter("useremail", email);
-		q.setParameter("userpass", pass);
-		try
-		{
-			long userid=q.getSingleResult();
-			if(userid>0)
-			{
-				result=true;
+
+	public static boolean isValidUser(String email, String pass) throws NoSuchAlgorithmException {
+		boolean result = false;
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		String qString = "Select b from Minionuser b " + "where b.useremail=:email";
+		try {
+			TypedQuery<Minionuser> q = em.createQuery(qString, Minionuser.class);
+
+			q.setParameter("email", email);
+			q.setParameter("userpass", pass);
+			Minionuser user = q.getSingleResult();
+			String hashCode = PasswordUtil.hashPasswordPlusSalt(pass, user.getPwdsecure());
+
+			if (user.getPwd() == hashCode) {
+				result = true;
 			}
-		}catch(Exception e)
-		{
-			result=false;
-		}
-		finally
-		{
+		} catch (Exception e) {
+			result = false;
+		} finally {
 			em.close();
 		}
 		return result;
 	}
-	public static List<Prodtype> getProdtype()
-	{
-		
-		EntityManager em=DBUtil.getEmFactory().createEntityManager();
 
-		String qString="Select p from Prodtype p";
-	
-		Query q=em.createQuery(qString);
-		
-		
-		List<Prodtype> post=new ArrayList<Prodtype>();	
-		
-		try
-		{
-			post=q.getResultList();
-			
-			
-		}
-		catch(NoResultException e)
-		{
-		   System.out.println(e);
-		}catch(Exception e)
-		{
-		   
+	public static List<Prodtype> getProdtype() {
+
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+		String qString = "Select p from Prodtype p";
+
+		Query q = em.createQuery(qString);
+
+		List<Prodtype> post = new ArrayList<Prodtype>();
+
+		try {
+			post = q.getResultList();
+
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} catch (Exception e) {
+
 			e.printStackTrace();
-		}finally
-		{
+		} finally {
 			em.close();
 		}
 		return post;
 	}
-	public static List<Product> getProducts()
-	{
-		
-		EntityManager em=DBUtil.getEmFactory().createEntityManager();
 
-		String qString="Select p from Product p";
-	
-		Query q=em.createQuery(qString);
-		
-		
-		List<Product> post=new ArrayList<Product>();	
-		
-		try
-		{
-			post=q.getResultList();
-			
-			
-		}
-		catch(NoResultException e)
-		{
-		   System.out.println(e);
-		}catch(Exception e)
-		{
-		   
+	public static List<Product> getProducts() {
+
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+		String qString = "Select p from Product p";
+
+		Query q = em.createQuery(qString);
+
+		List<Product> post = new ArrayList<Product>();
+
+		try {
+			post = q.getResultList();
+
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} catch (Exception e) {
+
 			e.printStackTrace();
-		}finally
-		{
+		} finally {
 			em.close();
 		}
 		return post;
 	}
-	public static List<Product> getProductsbytypeid(long typeid)
-	{
-		
-		EntityManager em=DBUtil.getEmFactory().createEntityManager();
 
-		String qString="Select p from Product p where p.prodtype.typeid=: typeid";
-	
-		Query q=em.createQuery(qString);
+	public static List<Product> getProductsbytypeid(long typeid) {
+
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+		String qString = "Select p from Product p where p.prodtype.typeid=: typeid";
+
+		Query q = em.createQuery(qString);
 		q.setParameter("type", typeid);
-		List<Product> post=new ArrayList<Product>();	
-		
-		try
-		{
-			post=q.getResultList();
-			
-			
-		}
-		catch(NoResultException e)
-		{
-		   System.out.println(e);
-		}catch(Exception e)
-		{
-		   
+		List<Product> post = new ArrayList<Product>();
+
+		try {
+			post = q.getResultList();
+
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} catch (Exception e) {
+
 			e.printStackTrace();
-		}finally
-		{
+		} finally {
 			em.close();
 		}
 		return post;
 	}
+
 	 public static long getprodtypeid (String typeid)
 	    {
 	        EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -322,6 +288,6 @@ public class Dataget {
 	
 	
 	
-	
+
 
 }

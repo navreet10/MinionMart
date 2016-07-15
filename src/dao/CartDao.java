@@ -226,7 +226,7 @@ public class CartDao {
 	public static List<Wishlist> getWishItems() {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		List<Wishlist> items = null;
-		String qString = "select b from Wisklist b";
+		String qString = "select b from Wishlist b";
 
 		try {
 			TypedQuery<Wishlist> query = em.createQuery(qString, Wishlist.class);

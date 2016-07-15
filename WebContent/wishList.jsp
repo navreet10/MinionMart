@@ -113,7 +113,7 @@
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
 					
-					<h3>Items in cart:</h3>
+					<h3>Items in Wish List:</h3>
 							<form id="cart" action="CheckoutWishList" method="post">
 							<div>
 							<div class="panel-group">
@@ -138,7 +138,7 @@
 															<td align="left" colspan="2">Price: <input type="text" id="price" disabled="disabled" name="price" value="${items.product.prodprice}"> </td>															
 														</tr>
 														<tr>
-															<td align="right" colspan="2"><input class="delete" type="button" id='delete${items.cartid}' name='delete${items.cartid}' value="Delete"> </td>															
+															<td align="right" colspan="2"><input class="delete" type="button" id='delete${items.wishid}' name='delete${items.wishid}' value="Delete"> </td>															
 														</tr>
 														</c:forEach>
 													</table>													

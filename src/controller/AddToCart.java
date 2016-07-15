@@ -44,20 +44,6 @@ public class AddToCart extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-<<<<<<< HEAD
-		Minionuser minionuser = (Minionuser) request.getSession().getAttribute("user");
-		String prodId = request.getParameter("prodId");
-		String qtty = request.getParameter("1");
-		Cart cart = new Cart();
-		cart.setActive(new BigDecimal(0));
-		cart.setMinionuser(minionuser);
-		cart.setQtty(new BigDecimal(qtty));
-		Product prod = CartDao.getProduct(prodId);
-		cart.setProduct(prod);
-		CartDao.insertCart();
-		
-		request.getRequestDispatcher("Shopping.jsp").forward(request, response);
-=======
 			Minionuser minionuser = (Minionuser) request.getSession().getAttribute("user");
 			String prodId = request.getParameter("prodId");
 			String qtty = request.getParameter("1");
@@ -71,7 +57,7 @@ public class AddToCart extends HttpServlet {
 			// set things for shopping
 			request.setAttribute("message", "Added to cart successfully");
 			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
->>>>>>> c8d937ec0bc5b43e984856e58973d8461ce6d26b
+
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "Something went wrong!!");

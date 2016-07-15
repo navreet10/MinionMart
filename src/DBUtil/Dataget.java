@@ -15,7 +15,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import Model.GReview;
 import model.Cart;
 import model.Minionuser;
 import model.Prodtype;

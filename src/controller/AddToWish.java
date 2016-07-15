@@ -33,7 +33,14 @@ public class AddToWish extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+HttpSession session = request.getSession();
 		
 		String prodid=(String)request.getParameter("prodId");
 		long longprodid=Dataget.getprodid(prodid);
@@ -50,14 +57,6 @@ public class AddToWish extends HttpServlet {
 		Dataget.insert(wish);
 		
 		request.getRequestDispatcher("/Shopping.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

@@ -1,38 +1,45 @@
 $(document).ready(function() {
+	
+	$("#productlist").show();
+	 $("#productdetails").hide();
+	
 	$('.addCart').click(function (event) {
+	
 		 var idItem = $(this).attr('id');
 		 var id = idItem.substring(9);
 		 var dataString ='prodId='+ id;
-		 
 		 $.ajax({  
 			    type: "POST",  
 			    url: "AddToCart",
            data: dataString,
            success: function(data){
-               window.location = 'http://localhost:8081/MinionMart/Shopping.jsp';
+        	   alert("Add to cart successfully!");
+               window.location = 'http://localhost:8080/MinionMart/Shopping.jsp';
              }                
 			  });
 		
 	 
 	 
 });            
-	$('.addCart').click(function (event) {
+	$('.addWish').click(function (event) {
 		 var idItem = $(this).attr('id');
 		 var id = idItem.substring(9);
 		 var dataString ='prodId='+ id;
 		 
 		 $.ajax({  
 			    type: "POST",  
-			    url: "AddToCart",
+			    url: "AddToWish",
           data: dataString,
           success: function(data){
-              window.location = 'http://localhost:8081/MinionMart/Shopping.jsp';
+        	  alert("Add to Wish List successfully!");
+              window.location = 'http://localhost:8080/MinionMart/Shopping.jsp';
             }                
 			  });
+	}); 
+		 
 		
 	 
-	 
-});            
+	             
 		  
 	
-})
+});

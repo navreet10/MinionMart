@@ -1,3 +1,5 @@
+
+
 drop table cart;
 drop table wishlist;
 drop table userorder;
@@ -143,6 +145,13 @@ Insert into product (prodId,prodname,proddesc,produrl,prodprice,TYPEID) values (
 select * from product;
 
 --insertion for 
+
+
+
+
+
+
+
 
 
 

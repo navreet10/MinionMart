@@ -45,12 +45,11 @@ public class AddToCart extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			Minionuser minionuser = (Minionuser) request.getSession().getAttribute("user");
-			String prodId = request.getParameter("prodId");
-			String qtty = request.getParameter("1");
+			String prodId = request.getParameter("prodId");		
 			Cart cart = new Cart();
 			cart.setActive(new BigDecimal(0));
 			cart.setMinionuser(minionuser);
-			cart.setQtty(Long.parseLong(qtty));
+			cart.setQtty(1);
 			Product prod = CartDao.getProduct(prodId);
 			cart.setProduct(prod);
 			CartDao.insertCart(cart);

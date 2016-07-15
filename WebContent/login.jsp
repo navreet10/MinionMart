@@ -11,7 +11,7 @@
 <section class="container">
 <div style="width: 500px; margin: 200px auto 0 auto;">
 <div class="login">
-<form action="loginServlet" method="get" >
+<form action="loginServlet" method="post" >
 <h1>Login to Web App</h1>
 <div id="message"> ${loginerror} </div>
 

@@ -15,7 +15,7 @@ public class Minionorder implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MINIONORDER_ORDERID_GENERATOR", sequenceName="MINIONORDER_ID_SEQ")
+	@SequenceGenerator(name="MINIONORDER_ORDERID_GENERATOR", sequenceName="MINIONORDER_ID_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MINIONORDER_ORDERID_GENERATOR")
 	private long orderid;
 

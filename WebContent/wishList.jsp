@@ -30,6 +30,7 @@
 	href="https://jqueryui.com/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+ <link rel="stylesheet" type="text/css" href="css/mycss.css" />
 <style>
 #draggable {
 	width: 0px;
@@ -89,7 +90,7 @@
 </style>
 <title>View Wish List</title>
 </head>
-<body class="body">
+<body class="body placeholder">
 	
 		<div class="container">
 			<br> <br>
@@ -163,5 +164,6 @@
 
 			</div>
 		</div>
+		<script  src="js/color.js"></script>
 </body>
 </html>

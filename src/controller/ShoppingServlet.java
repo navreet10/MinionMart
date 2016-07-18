@@ -39,12 +39,11 @@ public class ShoppingServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String typeid = (String)request.getParameter("typeid");
-		String productid = (String)request.getParameter("productid");
-			
+		String productid = (String)request.getParameter("productid");	
 		
 		if(typeid!=null)
 		{
-			System.out.println(typeid);
+			
 			long longtypeid=Dataget.getprodtypeid(typeid);	
 			List<model.Product> Products=Dataget.getProductsbytypeid(longtypeid);
 			session.setAttribute("Products",Products );
@@ -53,21 +52,22 @@ public class ShoppingServlet extends HttpServlet {
 		
 		if(productid!=null)
 		{
+			
 			long longproductid=Dataget.getprodid(productid);
 			
 			Product myproduct=Dataget.getproductbyproductid(longproductid);
 			
-			session.setAttribute("myproduct",myproduct );
 			
+			session.setAttribute("myproduct",myproduct );
 			session.setAttribute("myproductname", myproduct.getProdname());
 			session.setAttribute("myproductimage", myproduct.getProdurl());
 			session.setAttribute("myproductdesc", myproduct.getProddesc());
 			session.setAttribute("myproducttype", myproduct.getProdtype().getTypename());
 			session.setAttribute("myproductprice", myproduct.getProdprice());
 			
-			System.out.println("go to");
-			request.getRequestDispatcher("/ProductDetails.jsp").forward(request, response);
-					
+			System.out.println(productid);
+			request.getRequestDispatcher("/Shopping.jsp").forward(request, response);
+			System.out.println(productid);		
 		}
 		
 		

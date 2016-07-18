@@ -36,7 +36,7 @@
       <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       <li><div class="search-form">
                 <div class="form-group has-feedback">
-            		<label for="search" class="sr-only">Search</label>
+            		<label for="Search" class="sr-only">Search</label>
             		<input type="text" class="form-control" name="search" id="search" value = "" placeholder="search">
               		<span class="glyphicon glyphicon-search form-control-feedback"></span>
             	</div>
@@ -44,7 +44,7 @@
       </c:if>
       <c:if test="${user != null}"> 
       <li><a href="<%=request.getContextPath()%>/Profile"><span class="glyphicon glyphicon-user"></span> Welcome ${userName} <img src="${gUrl}" alt="${user.username}"/></a></li>
-      <li><a href="<%=request.getContextPath()%>/Logout"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+      <li><a href="<%=request.getContextPath()%>/logout"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
       <li><form action="Search" class="search-form">
                 <div class="form-group has-feedback">
             		<label for="search" class="sr-only">Search</label>

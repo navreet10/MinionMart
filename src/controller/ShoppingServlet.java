@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -65,9 +66,9 @@ public class ShoppingServlet extends HttpServlet {
 			session.setAttribute("myproducttype", myproduct.getProdtype().getTypename());
 			session.setAttribute("myproductprice", myproduct.getProdprice());
 			
-			System.out.println(productid);
+			
 			request.getRequestDispatcher("/Shopping.jsp").forward(request, response);
-			System.out.println(productid);		
+					
 		}
 		
 		

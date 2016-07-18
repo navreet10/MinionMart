@@ -25,14 +25,21 @@
     <nav class="navbar navbar-default" style="background-color: #01579b">
   <div class="container-fluid ">
     <div class="navbar-header" >
-      <a class="navbar-brand " href="login.jsp" style="color: #fff; font-weight: bold;font-size:20px">Bullhorn</a>
+      <a class="navbar-brand " href="login.jsp" style="color: #fff; font-weight: bold;font-size:20px">MinionMart</a>
     </div>
     <ul class="nav navbar-nav">
      <li><a href="userprofile.jsp" style="color: #fff; font-weight: bold;font-size:20px"><img src= ${ images}  width="20" height="20"></img> ${username}</a></li>
       <li ><a href="home.jsp" style="color: #fff; font-weight: bold;font-size:20px" class="active">Home</a></li>
       <li><a href="<%=request.getContextPath() %>/ViewWish" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Wish List</a></li>
       <li><a href="<%=request.getContextPath() %>/ViewCart" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Cart</a></li>
-      <li ><a href="<%=request.getContextPath() %>/Logout"  style="color: #fff; font-weight: bold;font-size:20px">Log Out</a></li>
+      <li ><a href="<%=request.getContextPath() %>/logout"  style="color: #fff; font-weight: bold;font-size:20px">Log Out</a></li>
+     <li><form action="Search" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="Search" class="sr-only">Search</label>
+            		<input type="text" class="form-control" name="search" id="search" placeholder="search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form></li>
     </ul>
   
   </div>

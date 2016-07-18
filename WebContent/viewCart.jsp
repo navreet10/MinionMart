@@ -19,6 +19,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="javascripts/home.js"></script>
+
 <!-- Latest compiled JavaScript -->
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -91,7 +92,7 @@
 <title>View Cart</title>
 </head>
 <body class="body placeholder">
-	
+
 		<div class="container">
 			<br> <br>
 			<jsp:include page="NavBar.jsp" />
@@ -164,6 +165,7 @@
 
 			</div>
 		</div>
-		<script  src="js/color.js"></script>
+		
+		<script  src="js/delete.js"></script>
 </body>
 </html>

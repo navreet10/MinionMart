@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CartDao;
 import model.Cart;
@@ -41,6 +42,11 @@ public class Checkout extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String checkout=request.getParameter("checkout");
+		
+		if(checkout!=null)
+		{	
 		try {
 			
 			List<Cart> cartItems = CartDao.getCartItems();
@@ -61,6 +67,17 @@ public class Checkout extends HttpServlet {
 			e.printStackTrace();
 			request.setAttribute("message", "Something went wrong!!");
 			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
+		}
+		}
+		else
+		{
+			HttpSession session = request.getSession();
+			
+			List<Cart> items = CartDao.getCartItems();
+			// set things for shopping
+			//request.setAttribute("items", items);
+			session.setAttribute("items", items);
+			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
 		}
 	}
 

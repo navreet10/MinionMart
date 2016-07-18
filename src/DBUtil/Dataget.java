@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import Util.PasswordUtil;
+
 import model.Cart;
 import model.Minionuser;
 import model.Prodtype;
@@ -303,7 +304,23 @@ public class Dataget {
 	            em.close();
 	        }
 	    }
-	
+	 public static List<Product> searchProducts (String search)
+	    {
+	        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+	        List<Product> searchposts = null;
+	        String qString = "select b from Product b "
+	                + "where b.prodname like :search";
+	        
+	        try{
+	            TypedQuery<Product> query = em.createQuery(qString,Product.class);
+	            query.setParameter("search", "%" + search + "%");
+	            searchposts = query.getResultList();
+	        }catch (Exception e){
+	            e.printStackTrace();
+	        }finally{
+	            em.close();
+	        }return searchposts;
+	    }
 	
 	
 

@@ -165,5 +165,6 @@
 			</div>
 		</div>
 		<script  src="js/color.js"></script>
+		<script  src="js/deleteWish.js"></script>
 </body>
 </html>

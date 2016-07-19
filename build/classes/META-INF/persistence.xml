@@ -3,13 +3,13 @@
 	<persistence-unit name="MinionMart" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>model.Cart</class>
-		<class>model.Minionorder</class>
 		<class>model.Minionuser</class>
 		<class>model.Prodtype</class>
 		<class>model.Product</class>
 		<class>model.Userorder</class>
 		<class>model.Wishlist</class>
 		<class>model.Minionreview</class>
+		<class>model.Minionorder</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>

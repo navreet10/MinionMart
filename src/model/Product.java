@@ -24,7 +24,7 @@ public class Product implements Serializable {
 
 	private String prodname;
 
-	private BigDecimal prodprice;
+	private float prodprice;
 
 	private String produrl;
 
@@ -72,11 +72,11 @@ public class Product implements Serializable {
 		this.prodname = prodname;
 	}
 
-	public BigDecimal getProdprice() {
+	public float getProdprice() {
 		return this.prodprice;
 	}
 
-	public void setProdprice(BigDecimal prodprice) {
+	public void setProdprice(float prodprice) {
 		this.prodprice = prodprice;
 	}
 

@@ -151,25 +151,25 @@ public class CartDao {
 		return items;
 	}
 
-	public static void order(List<Cart> cartUpdated, String username) {
+	public static long order(List<Cart> cartUpdated, String username) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		
+		long orderid=-1;
 		try {
 			String qString = "select b from Userorder b where b.minionuser.userid = "
 					+ "(select a.userid from Minionuser a where a.username = :username) ";
 			TypedQuery<Userorder> query = em.createQuery(qString, Userorder.class);
 			query.setParameter("username", username);
-			long orderid;
+			
 			List<Userorder> usors = query.getResultList();
 			 Userorder userorder = null;
 			if (usors == null || usors.size()==0) {
 				userorder = new Userorder();
 				userorder.setMinionuser(Dataget.getUserByName(username));
-				userorder.setOrdercount(new BigDecimal(1));
+				userorder.setOrdercount(1l);
 				orderid = 1;
 			} else {
 				userorder = usors.get(0);
-				orderid = userorder.getUserorderid() + 1;
+				orderid = userorder.getOrdercount() + 1;
 			}
 			 
 			for (Cart cart : cartUpdated) {
@@ -204,7 +204,7 @@ public class CartDao {
 		} finally {
 			em.close();
 		}
-
+		return orderid;
 	}
 
 	public static void updateCart() {
@@ -227,15 +227,15 @@ public class CartDao {
 		
 	}
 
-	public static void orderWish(List<Wishlist> wishItems, String username) {
+	public static long orderWish(List<Wishlist> wishItems, String username) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		
+		long orderid=-1;
 		try {
 			String qString = "select b from Userorder b where b.minionuser.userid = "
 					+ "(select a.userid from Minionuser a where a.username = :username) ";
 			TypedQuery<Userorder> query = em.createQuery(qString, Userorder.class);
 			query.setParameter("username", username);
-			long orderid;
+			
 			List<Userorder> usors = query.getResultList();
 			 Userorder userorder = null;
 			if (usors == null || usors.size()==0) {
@@ -280,7 +280,7 @@ public class CartDao {
 		} finally {
 			em.close();
 		}
-		
+		return orderid;
 	}
 
 	private static void deleteWishList() {

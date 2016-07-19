@@ -19,7 +19,7 @@ public class Userorder implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERORDER_USERORDERID_GENERATOR")
 	private long userorderid;
 
-	private BigDecimal ordercount;
+	private long ordercount;
 
 	//bi-directional many-to-one association to Minionuser
 	@ManyToOne
@@ -37,11 +37,11 @@ public class Userorder implements Serializable {
 		this.userorderid = userorderid;
 	}
 
-	public BigDecimal getOrdercount() {
+	public long getOrdercount() {
 		return this.ordercount;
 	}
 
-	public void setOrdercount(BigDecimal ordercount) {
+	public void setOrdercount(long ordercount) {
 		this.ordercount = ordercount;
 	}
 

@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import DBUtil.DBUtil;
 import model.Minionorder;
+import model.Minionuser;
 import model.Prodtype;
 import model.Product;
 
@@ -118,5 +120,50 @@ public class OrderDao {
 		}
 		
 	}
+	public static Minionorder getorderByorderid(long orderid) {
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		String qString = "Select u from Minionorder u where u.orderid = :orderid";
+		TypedQuery<Minionorder> q = em.createQuery(qString, Minionorder.class);
+		q.setParameter("orderid", orderid);
+		Minionorder order = null;
+		try {
+			order = q.getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} finally {
+			em.close();
+		}
+		return order;
+	}
+	
+	public static List<Minionorder> getordersByordername(String ordername) {
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		String qString = "Select u from Minionorder u where u.ordername = :ordername";
+		TypedQuery<Minionorder> q = em.createQuery(qString, Minionorder.class);
+		q.setParameter("ordername", ordername);
+		List<Minionorder> orders = null;
+		try {
+			orders = q.getResultList();
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} finally {
+			em.close();
+		}
+		return orders;
+	}
+	
+	public static float getpricetotal(List<Minionorder> orders)
+	{
+		float price=0;
+		for(Minionorder order: orders)
+		{
+			price+=order.getProduct().getProdprice()*order.getQtty();
+		}
+		return price;
+	}
+	
+	
+	
+	
 
 }

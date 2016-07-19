@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 /**
@@ -20,14 +21,13 @@ public class Minionorder implements Serializable {
 
 	private String ordername;
 
-	private Long qtty;
-
-	private String status;
-
-	//bi-directional many-to-one association to Product
 	@ManyToOne
 	@JoinColumn(name="PRODID")
 	private Product product;
+
+	private long qtty;
+
+	private String status;
 
 	public Minionorder() {
 	}
@@ -48,11 +48,19 @@ public class Minionorder implements Serializable {
 		this.ordername = ordername;
 	}
 
-	public Long getQtty() {
+	public Product getProduct() {
+		return this.product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public long getQtty() {
 		return this.qtty;
 	}
 
-	public void setQtty(Long qtty) {
+	public void setQtty(long qtty) {
 		this.qtty = qtty;
 	}
 
@@ -62,14 +70,6 @@ public class Minionorder implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Product getProduct() {
-		return this.product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
 	}
 
 }

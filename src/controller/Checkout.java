@@ -55,9 +55,14 @@ public class Checkout extends HttpServlet {
 				cart.setQtty(Long.parseLong(request.getParameter("qtty"+cart.getCartid())));
 				cartUpdated.add(cart);
 			}
-			CartDao.order(cartUpdated,((Minionuser)request.getSession().getAttribute("user")).getUsername());
+			String ordername=CartDao.order(cartUpdated,((Minionuser)request.getSession().getAttribute("user")).getUsername());
 			// set things for shopping
 			request.setAttribute("message", "Order placed successfully");
+			
+			
+			
+					
+			
 			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
@@ -68,6 +73,7 @@ public class Checkout extends HttpServlet {
 			request.setAttribute("message", "Something went wrong!!");
 			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
 		}
+		
 		}
 		else
 		{

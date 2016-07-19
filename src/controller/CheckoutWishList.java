@@ -48,7 +48,8 @@ public class CheckoutWishList extends HttpServlet{
 			
 			List<Wishlist> wishItems = CartDao.getWishItems();		
 			
-			CartDao.orderWish(wishItems,((Minionuser)request.getSession().getAttribute("user")).getUsername());
+			long orderid=CartDao.orderWish(wishItems,((Minionuser)request.getSession().getAttribute("user")).getUsername());
+			
 			request.setAttribute("message", "Order placed successfully");
 			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
 		} catch (NullPointerException e) {

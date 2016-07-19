@@ -19,35 +19,15 @@
     <link rel="stylesheet" type="text/css" href="css/mycss.css" />
     
 </head>
-<body class=" body placeholder">
-    
+<jsp:include page="NavBar.jsp" />
+<body class=" body placeholder">    
+
  
-    <nav class="navbar navbar-default" style="background-color: #01579b">
-  <div class="container-fluid ">
-    <div class="navbar-header" >
-      <a class="navbar-brand " href="login.jsp" style="color: #fff; font-weight: bold;font-size:20px">MinionMart</a>
-    </div>
-    <ul class="nav navbar-nav">
-     <li><a href="userprofile.jsp" style="color: #fff; font-weight: bold;font-size:20px"><img src= ${ images}  width="20" height="20"></img> ${username}</a></li>
-      <li ><a href="home.jsp" style="color: #fff; font-weight: bold;font-size:20px" class="active">Home</a></li>
-      <li><a href="<%=request.getContextPath() %>/ViewWish" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Wish List</a></li>
-      <li><a href="<%=request.getContextPath() %>/ViewCart" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Cart</a></li>
-      <li ><a href="<%=request.getContextPath() %>/logout"  style="color: #fff; font-weight: bold;font-size:20px">Log Out</a></li>
-     <li><form action="Search" class="search-form">
-                <div class="form-group has-feedback">
-            		<label for="Search" class="sr-only">Search</label>
-            		<input type="text" class="form-control" name="search" id="search" placeholder="search">
-              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
-            	</div>
-            </form></li>
-    </ul>
+ <form action="ShoppingServlet" method="get"  id="myform" name="myform" >  
+              
+  <div style="background-color: white;" class="panel-body">
   
-  </div>
-</nav>
  
- <form action="ShoppingServlet" method="get"  id="myform" name="myform" >               
-   
-  
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
         
@@ -56,8 +36,7 @@
                 <li class="active">
              
                     <a href="ShoppingServlet?typeid=${type.typeid}">${type.typename }</a>
-                            
-                    
+                               
                 </li>
 
                 </c:forEach>
@@ -66,7 +45,12 @@
         </div><!-- /#sidebar-wrapper -->
         <!-- Page Content -->
    
-<div style="background-color: white;" class="panel-body">
+
+ <div class="row">
+  
+  <div class="col-sm-2"></div>
+  
+    <div class="col-sm-8">
       
         <div class="container" name="productlist" id="productlist">
            <div id="page-content-wrapper">
@@ -98,7 +82,9 @@
         </div> 
                         
        </div>  
-    
+    </div>
+     <div class="col-sm-2"></div>
+      </div>
       
     </div>                
        

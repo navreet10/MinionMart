@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,23 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DBUtil.Dataget;
-import model.Cart;
 import model.Minionreview;
 import model.Minionuser;
 import model.Product;
-import model.Wishlist;
 
 /**
- * Servlet implementation class ShoppingServlet
+ * Servlet implementation class ProductdetailsServlet
  */
-@WebServlet("/ShoppingServlet")
-public class ShoppingServlet extends HttpServlet {
+@WebServlet("/ProductdetailsServlet")
+public class ProductdetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShoppingServlet() {
+    public ProductdetailsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,19 +37,11 @@ public class ShoppingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
-		String typeid = (String)request.getParameter("typeid");
-		String productid = (String)request.getParameter("productid");	
 		
-		if(typeid!=null)
-		{
-			
-			long longtypeid=Dataget.getprodtypeid(typeid);	
-			List<model.Product> Products=Dataget.getProductsbytypeid(longtypeid);
-			session.setAttribute("Products",Products );
-			request.getRequestDispatcher("/Shopping.jsp").forward(request, response);
-		}
+		String productid = (String)request.getParameter("productid");
+		
+		String method = (String)request.getParameter("method");
 		
 		if(productid!=null)
 		{
@@ -98,12 +88,73 @@ public class ShoppingServlet extends HttpServlet {
 			session.setAttribute("images", "https://www.gravatar.com/avatar/"+Util.MD5Util.md5Hex(user.getUseremail())+"?s=80");
 			
 			
-			
-			
 			request.getRequestDispatcher("/productdetails.jsp").forward(request, response);
 					
 		}
 		
+		
+		if(method!=null)
+		{
+			if(method.equals("Add"))
+			{
+				 String addreview= request.getParameter("limitedtextarea");
+				 Product myproduct=(Product) request.getSession().getAttribute("myproduct");
+				 Minionuser user = (Minionuser) request.getSession().getAttribute("user");
+				 
+				 Minionreview review=new Minionreview();
+				 
+				 Date today=new Date();
+				 review.setMinionuser(user);
+				 review.setProduct(myproduct);
+				 review.setReviewtext(addreview);
+				 review.setReviewdate(today);
+				 review.setIshelpful(0);
+				 
+				 Dataget.insert(review);
+				 
+				 List<Minionreview> reviews =Dataget.getProductReviews(myproduct.getProdid());
+					
+				 session.setAttribute("Productreviews", reviews);
+				 HashMap<String,String> imageurls=Dataget.getGravatarUrl(reviews);
+					HashMap<String,String> happysadurls=Dataget.gethappysadUrl(reviews);
+					
+					session.setAttribute("happysadurls", happysadurls);
+				    session.setAttribute("imageurls",imageurls ); 	
+				 
+				 request.getRequestDispatcher("/productdetails.jsp").forward(request, response);
+				 
+			}
+			else if(method.equals("Search"))
+			{
+				String searchreview= request.getParameter("limitedtextarea");
+				 if(searchreview.equals(null))
+				 {
+					 Product myproduct=(Product) request.getSession().getAttribute("myproduct");
+					 List<Minionreview> reviews =Dataget.getProductReviews(myproduct.getProdid());
+						
+					 session.setAttribute("Productreviews", reviews);
+					 HashMap<String,String> imageurls=Dataget.getGravatarUrl(reviews);
+						HashMap<String,String> happysadurls=Dataget.gethappysadUrl(reviews);
+						
+						session.setAttribute("happysadurls", happysadurls);
+					    session.setAttribute("imageurls",imageurls ); 	
+					 
+					 request.getRequestDispatcher("/productdetails.jsp").forward(request, response);
+				 }
+				 else
+				 {
+					 List<Minionreview> reviews =Dataget.searchReview(searchreview);
+					 session.setAttribute("Productreviews", reviews);
+					 HashMap<String,String> imageurls=Dataget.getGravatarUrl(reviews);
+						HashMap<String,String> happysadurls=Dataget.gethappysadUrl(reviews);
+						
+						session.setAttribute("happysadurls", happysadurls);
+					    session.setAttribute("imageurls",imageurls ); 	
+					 
+					 request.getRequestDispatcher("/productdetails.jsp").forward(request, response);
+				 }
+			}
+		}
 		
 		
 	}

@@ -1,7 +1,9 @@
 package DBUtil;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +12,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import Util.PasswordUtil;
-
 import model.Cart;
+import model.Minionreview;
 import model.Minionuser;
 import model.Prodtype;
 import model.Product;
@@ -61,7 +63,7 @@ public class Dataget {
 			q.setParameter("name", name);
 			Minionuser user = q.getSingleResult();
 			String hashCode = PasswordUtil.hashPasswordPlusSalt(pass, user.getPwdsecure());
-			System.out.println(hashCode);
+		
 			if (user.getPwd().equals(hashCode)) {
 				result = true;
 			}
@@ -120,8 +122,135 @@ public class Dataget {
 		}
 		return post;
 	}
+	
+	public static List<Minionreview> getProductReviews(long productid) {
 
-		   
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+		String qString = "Select p from Minionreview p where p.product.prodid=:productid";
+
+		Query q = em.createQuery(qString);
+		q.setParameter("productid", productid);
+		List<Minionreview> reviews = new ArrayList<Minionreview>();
+
+		try {
+			reviews = q.getResultList();
+
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return reviews;
+	}
+	
+	public static List<Minionreview> getReviews() {
+
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+		String qString = "Select p from Minionreview p ";
+
+		Query q = em.createQuery(qString);
+		List<Minionreview> reviews = new ArrayList<Minionreview>();
+
+		try {
+			reviews = q.getResultList();
+
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return reviews;
+	}
+	
+	public static List<Minionreview> getMyReviews(long userid) {
+
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+		String qString = "Select p from Minionreview p where p.minionuser.userid=:userid ";
+
+		Query q = em.createQuery(qString);
+		q.setParameter("userid", userid);
+		List<Minionreview> reviews = new ArrayList<Minionreview>();
+
+		try {
+			reviews = q.getResultList();
+
+		} catch (NoResultException e) {
+			System.out.println(e);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return reviews;
+	}
+	
+	public static void insert(Minionuser user) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(user);
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+	public static void update(Minionuser user) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(user);
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+	
+	
+	public static void insert(Minionreview review) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(review);
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+	public static void update(Minionreview review) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(review);
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+	
+	
+
 
 	public static List<Product> getProductsbytypeid(long typeid) {
 
@@ -172,6 +301,31 @@ public class Dataget {
 	                em.close();
 	            }
 	        return longtypeid;    
+	    }
+	 public static long getprodreviewid (String reviewid)
+	    {
+	        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+	        List<Long> reviewids=new ArrayList<Long>();
+	        String qString = "select b.reviewid from Minionreview b";
+	        long longreviewid=0;
+	        try{
+	            Query query = em.createQuery(qString,Prodtype.class);           
+	            reviewids=query.getResultList();
+	            
+	            for(long a: reviewids)
+	            {
+	            	if(Long.toString(a).equals(reviewid))
+	            	{
+	            		longreviewid=a;
+	            	}
+	            }
+	        }catch (Exception e){
+	            e.printStackTrace();
+	        }
+	        finally{
+	                em.close();
+	            }
+	        return longreviewid;    
 	    }
 	 public static long getprodid (String prodid)
 	    {
@@ -240,6 +394,25 @@ public class Dataget {
 	                em.close();
 	            }
 	        return product;    
+	    }
+	 
+	 public static Minionreview getreviewbyreviewid(long reviewid)
+	    {
+	        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+	        Minionreview review = null;
+	        String qString = "select b from Minionreview b where b.reviewid =:reviewid";
+	        
+	        try{
+	            TypedQuery<Minionreview> query = em.createQuery(qString,Minionreview.class);
+	            query.setParameter("reviewid", reviewid);
+	            review = query.getSingleResult();
+	        }catch (Exception e){
+	            e.printStackTrace();
+	        }
+	        finally{
+	                em.close();
+	            }
+	        return review;    
 	    }
 	 public static Prodtype getProdtypebytypeid(long typeid)
 	    {
@@ -320,6 +493,78 @@ public class Dataget {
 	        }finally{
 	            em.close();
 	        }return searchposts;
+	    }
+	 public static List<Minionreview> searchReview (String search)
+	    {
+		 
+	        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+	        List<Minionreview> searchposts = null;
+	        String qString = "select b from Minionreview b "
+	                + "where b.reviewtext like :search";
+	        
+	        try{
+	            TypedQuery<Minionreview> query = em.createQuery(qString,Minionreview.class);
+	            query.setParameter("search", "%" + search.replaceAll("[^a-zA-Z ]", "").toLowerCase() + "%");
+	            searchposts = query.getResultList();
+	        }catch (Exception e){
+	            e.printStackTrace();
+	        }finally{
+	            em.close();
+	        }return searchposts;
+	    }
+	 public static void delete(Minionreview review) {
+	        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+	        EntityTransaction trans = em.getTransaction();
+	        try {
+	            trans.begin();
+	            em.remove(em.merge(review));
+	            trans.commit();
+	        } catch (Exception e) {
+	            System.out.println(e);
+	            trans.rollback();
+	        } finally {
+	            em.close();
+	        }
+	    }
+	 public static HashMap<String,String> gethappysadUrl(List<Minionreview> allreviews) throws IOException
+	    {
+	    	HashMap<String,String> urls=new HashMap<String,String>();
+	    	Util.Sentiment sent=new Util.Sentiment();
+	    	sent.SentimentInit();
+	    	int moody=0;
+	    	for(Minionreview review: allreviews)
+	    	{
+	    		moody= sent.DefineMoody(sent.gethappyCount(review.getReviewtext().replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+")), sent.getSadCount(review.getReviewtext().replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+")));
+	    		 if(moody==1)
+			      {
+	    			 urls.put(review.getReviewtext(), "images/happy.png");
+			      }	
+			      else if(moody==-1)
+			      {
+			    	  urls.put(review.getReviewtext(), "images/sad.jpg");
+			      }
+			      else if(moody==0)
+			      {
+			    	  urls.put(review.getReviewtext(), "images/neatral.png");
+			    	  
+			      }
+	    	} 	
+	    			
+	    	return urls;
+	    	
+	    }
+	 public static HashMap<String,String> getGravatarUrl(List<Minionreview> allreviews)
+	    {
+	    	HashMap<String,String> urls=new HashMap<String,String>();
+	    		
+	    	for(Minionreview review: allreviews)
+	    	{
+	    		urls.put(review.getMinionuser().getUseremail(), "https://www.gravatar.com/avatar/"+Util.MD5Util.md5Hex(review.getMinionuser().getUseremail())+"?s=80");
+	    		
+	    	} 	
+	    			
+	    	return urls;
+	    	
 	    }
 	
 	

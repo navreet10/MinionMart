@@ -15,7 +15,7 @@
 <h1>Login to Web App</h1>
 <div id="message"> ${loginerror} </div>
 
-<div align="center">Email address:  <input type ="text" name = "email" id="email" value =""></input>
+<div align="center">User Name:  <input type ="text" name = "email" id="email" value =""></input>
 </div>
 <div align="center">Password:       <input type="password" name ="password" id="password" value=""></input>
 <input type ="hidden" name="secertvalue" id="secretvalue" value="loginForm"></input></div>

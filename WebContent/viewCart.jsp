@@ -18,7 +18,7 @@
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="javascripts/home.js"></script>
+<script src="js/viewCart.js"></script>
 
 <!-- Latest compiled JavaScript -->
 <script
@@ -100,7 +100,7 @@
 			<div style="background-color: white;" class="panel-body">
 				<div class="row">
 					<div class="col-sm-2">
-						<img src="${gBigUrl}" alt="${user.username}" />
+						<img src="${images}" alt="${user.username}" />
 					</div>
 					<div class="col-sm-10"></div>
 
@@ -114,7 +114,8 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
-					
+					<c:set var="prods" scope="session" value="${items}" />
+				<c:if test="${prods != null}">
 					<h3>Items in cart:</h3>
 							<form id="cart" action="Checkout" method="post">
 							<div>
@@ -128,7 +129,7 @@
 												<table width="100%">
 												<c:forEach var="items" items="${items}">
 														<tr>
-															<td align="left" colspan="2"><img src="${items.product.produrl}.jpg" /><c:out value="${items.product.prodname}"></c:out> </td>
+															<td align="left" colspan="2"><img src="${items.product.produrl}.jpg" width="200px" height="200px" /><c:out value="${items.product.prodname}"></c:out> </td>
 															
 														</tr>
 														<tr>
@@ -158,8 +159,12 @@
 							</form>
 						
 							
-						
+					</c:if>	
+					<c:if test="${prods == null}">
+					<h3>No Records</h3>
+					</c:if>
 					</div>
+					
 					<div class="col-sm-2"></div>
 				</div>
 

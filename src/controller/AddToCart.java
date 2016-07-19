@@ -49,7 +49,7 @@ public class AddToCart extends HttpServlet {
 			Cart cart = new Cart();
 			cart.setActive(new BigDecimal(0));
 			cart.setMinionuser(minionuser);
-			cart.setQtty(1);
+			cart.setQtty(1L);
 			Product prod = CartDao.getProduct(prodId);
 			cart.setProduct(prod);
 			CartDao.insertCart(cart);

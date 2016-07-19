@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.CartDao;
+import dao.OrderDao;
 import model.Cart;
+import model.Minionorder;
 import model.Minionuser;
 import model.Wishlist;
 
@@ -39,7 +41,7 @@ public class CheckoutWishList extends HttpServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
+		HttpSession session = request.getSession();
 		String checkout=request.getParameter("checkout");
 		
 		if(checkout!=null)
@@ -48,10 +50,22 @@ public class CheckoutWishList extends HttpServlet{
 			
 			List<Wishlist> wishItems = CartDao.getWishItems();		
 			
-			long orderid=CartDao.orderWish(wishItems,((Minionuser)request.getSession().getAttribute("user")).getUsername());
+			String ordername=CartDao.orderWish(wishItems,((Minionuser)request.getSession().getAttribute("user")).getUsername());
 			
 			request.setAttribute("message", "Order placed successfully");
-			request.getRequestDispatcher("Shopping.jsp").forward(request, response);
+			
+			List<Minionorder> orders=OrderDao.getOrder(ordername);
+			float price=OrderDao.getpricetotal(orders);
+			float tax=(float) (price*0.06);
+			float shippingprice=(float) 5.6;
+			float total=price+shippingprice+tax;
+			session.setAttribute("ordername", ordername);
+			session.setAttribute("price", price);
+			session.setAttribute("tax", tax);
+			session.setAttribute("shippingprice", shippingprice);
+			session.setAttribute("total", total);
+			
+			request.getRequestDispatcher("order.jsp").forward(request, response);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "Something went wrong!!");
@@ -64,7 +78,7 @@ public class CheckoutWishList extends HttpServlet{
 		}
 		else
 		{
-			HttpSession session = request.getSession();
+			
 			List<Wishlist> items = CartDao.getWishItems();
 			// set things for shopping
 			session.setAttribute("items", items);

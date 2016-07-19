@@ -1,8 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import DBUtil.DBUtil;
 import DBUtil.Dataget;
+import Util.Email;
+import Util.PasswordUtil;
 import dao.OrderDao;
 import model.*;
 
@@ -49,6 +53,13 @@ public class loginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
+		if(session.getAttribute("incorrectLogins") != null) {
+			int incorrectLogins= (Integer) session.getAttribute("incorrectLogins");
+		session.setAttribute("incorrectLogins", incorrectLogins +1);
+		} else {
+			session.setAttribute("incorrectLogins", 0);
+		}	
+		
 
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
@@ -59,8 +70,27 @@ public class loginServlet extends HttpServlet {
 		{
 			String username = request.getParameter("email");
 			model.Minionuser user = Dataget.getUserByName(username);
+			try {
+				Email.SendEmail("study.javaclass@gmail.com", "study.javaclass@gmail.com", "Forgot password", "studyjava", true);
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String passsecure=PasswordUtil.getSalt();
+			String hashcode="";
+			try {
+				hashcode = PasswordUtil.hashPasswordPlusSalt("studyjava", passsecure);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(hashcode);
+			user.setPwd(hashcode);
+			user.setPwdsecure(passsecure);
 			
+			Dataget.update(user);
 			
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 				
 		else {
@@ -91,13 +121,20 @@ public class loginServlet extends HttpServlet {
 					session.setAttribute("Products", Products);
 					if (name.equals("Admin")) {
 						List<Prodtype> prodtypes= OrderDao.getAllTypes();
-						request.setAttribute("types", prodtypes);
+						session.setAttribute("types", prodtypes);
 						request.getRequestDispatcher("/admin.jsp").forward(request, response);
 					} else {
 						request.getRequestDispatcher("/Shopping.jsp").forward(request, response);
 					}
 
 				} else {
+					int incorrectLogins= (Integer) session.getAttribute("incorrectLogins");
+					session.setAttribute("incorrectLogins", incorrectLogins +1);
+					if (incorrectLogins +1 > 3) {
+						System.out.println("sending email....");
+						Email.SendEmail("", "", "More than three Logins", 
+								"User " + name + " entered password incorrectly more than three times", true);
+					}
 					request.setAttribute("loginerror", "The user is not valid");
 
 					request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -105,6 +142,7 @@ public class loginServlet extends HttpServlet {
 				}
 
 			} catch (Exception e) {
+				e.printStackTrace();
 				String message1 = "There is no match";
 				System.out.println(e.getMessage());
 				request.setAttribute("loginerror", message1);

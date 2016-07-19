@@ -232,15 +232,17 @@ public class CartDao {
 		
 	}
 
-	public static long orderWish(List<Wishlist> wishItems, String username) {
+
+	public static String orderWish(List<Wishlist> wishItems, String username) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		long orderid=-1;
+		long orderid =0;
+
 		try {
 			String qString = "select b from Userorder b where b.minionuser.userid = "
 					+ "(select a.userid from Minionuser a where a.username = :username) ";
 			TypedQuery<Userorder> query = em.createQuery(qString, Userorder.class);
 			query.setParameter("username", username);
-			
+
 			List<Userorder> usors = query.getResultList();
 			 Userorder userorder = null;
 			if (usors == null || usors.size()==0) {
@@ -250,7 +252,7 @@ public class CartDao {
 				orderid = 1;
 			} else {
 				userorder = usors.get(0);
-				orderid = userorder.getUserorderid() + 1;
+				orderid = userorder.getOrdercount() + 1;
 			}
 			 
 			for (Wishlist wish : wishItems) {
@@ -285,7 +287,8 @@ public class CartDao {
 		} finally {
 			em.close();
 		}
-		return orderid;
+		return username + orderid;
+
 	}
 
 	private static void deleteWishList() {

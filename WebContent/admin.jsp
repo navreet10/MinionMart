@@ -203,7 +203,7 @@
 					<div>
 						<form id="target" action="UpdateOrder" method="post">
 							<div class="form-group">
-								<label for="typeAssgn">Order ID:</label> <input type="text"
+								<label for="typeAssgn">Order Name:</label> <input type="text"
 									name="orderName" id="orderName" value="${orderName}"
 									class="form-control">
 							</div>

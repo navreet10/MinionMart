@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 public class Email {
 	public static void SendEmail(String to, String from, String sub, 
 			String content, boolean bodyIsHTML) throws MessagingException {
-		System.out.println("Called");
+		
 		Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.gmail.com");
@@ -38,7 +38,6 @@ public class Email {
         transport.connect("study.javaclass@gmail.com","oopsie123");
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
-        System.out.println("finished");
 		
 	}
 

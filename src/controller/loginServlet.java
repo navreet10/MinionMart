@@ -131,8 +131,7 @@ public class loginServlet extends HttpServlet {
 					int incorrectLogins= (Integer) session.getAttribute("incorrectLogins");
 					session.setAttribute("incorrectLogins", incorrectLogins +1);
 					if (incorrectLogins +1 > 3) {
-						System.out.println("sending email....");
-						Email.SendEmail("", "", "More than three Logins", 
+						Email.SendEmail("study.javaclass@gmail.com", "study.javaclass@gmail.com", "More than three Logins", 
 								"User " + name + " entered password incorrectly more than three times", true);
 					}
 					request.setAttribute("loginerror", "The user is not valid");

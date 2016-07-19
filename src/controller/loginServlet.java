@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import DBUtil.DBUtil;
 import DBUtil.Dataget;
+import Util.Email;
 import dao.OrderDao;
 import model.*;
 
@@ -49,6 +50,13 @@ public class loginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
+		if(session.getAttribute("incorrectLogins") != null) {
+			int incorrectLogins= (Integer) session.getAttribute("incorrectLogins");
+		session.setAttribute("incorrectLogins", incorrectLogins +1);
+		} else {
+			session.setAttribute("incorrectLogins", 0);
+		}	
+		
 
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
@@ -80,13 +88,20 @@ public class loginServlet extends HttpServlet {
 					session.setAttribute("Products", Products);
 					if (name.equals("Admin")) {
 						List<Prodtype> prodtypes= OrderDao.getAllTypes();
-						request.setAttribute("types", prodtypes);
+						session.setAttribute("types", prodtypes);
 						request.getRequestDispatcher("/admin.jsp").forward(request, response);
 					} else {
 						request.getRequestDispatcher("/Shopping.jsp").forward(request, response);
 					}
 
 				} else {
+					int incorrectLogins= (Integer) session.getAttribute("incorrectLogins");
+					session.setAttribute("incorrectLogins", incorrectLogins +1);
+					if (incorrectLogins +1 > 3) {
+						System.out.println("sending email....");
+						Email.SendEmail("", "", "More than three Logins", 
+								"User " + name + " entered password incorrectly more than three times", true);
+					}
 					request.setAttribute("loginerror", "The user is not valid");
 
 					request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -94,6 +109,7 @@ public class loginServlet extends HttpServlet {
 				}
 
 			} catch (Exception e) {
+				e.printStackTrace();
 				String message1 = "There is no match";
 				System.out.println(e.getMessage());
 				request.setAttribute("loginerror", message1);

@@ -29,6 +29,10 @@
       
       <li><a href="<%=request.getContextPath() %>/ViewWish" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Wish List</a></li>
       <li><a href="<%=request.getContextPath() %>/ViewCart" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">View Cart</a></li>
+      <c:set var="user" scope="session" value="${user}"/>
+    <c:if test="${user.username == 'Admin'}">
+      <li><a href="<%=request.getContextPath() %>/admin.jsp" name="allpost" type="button" style="color: #fff; font-weight: bold;font-size:20px">Admin</a></li>
+      </c:if>
     </ul>
     <ul class="nav navbar-nav navbar-right">
     <c:set var="user" scope="session" value="${user}"/>

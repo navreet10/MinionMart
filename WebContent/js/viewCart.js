@@ -2,7 +2,8 @@
  * 
  */
 $(document).ready(function(){
-	$('.delete').click(function (event) {
+	$( "#admin" ).accordion();
+/*	$('.delete').click(function (event) {
 		 var idItem = $(this).attr('id');
 		 var id = idItem.substring(6);
 		 var dataString ='idItem='+ id;
@@ -14,10 +15,9 @@ $(document).ready(function(){
             success: function(data){
                 window.location = 'http://localhost:8080/BlueHorn/newsFeed.jsp';
               }                
-			  });
-		
+			  });	 
 	 
-	 
-});
+});*/
+	
 	
 });

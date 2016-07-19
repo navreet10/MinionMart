@@ -21,7 +21,7 @@ public class Cart implements Serializable {
 
 	private BigDecimal active;
 
-	private long qtty;
+	private Long qtty;
 
 	//bi-directional many-to-one association to Minionuser
 	@ManyToOne
@@ -52,11 +52,11 @@ public class Cart implements Serializable {
 		this.active = active;
 	}
 
-	public long getQtty() {
+	public Long getQtty() {
 		return this.qtty;
 	}
 
-	public void setQtty(long qtty) {
+	public void setQtty(Long qtty) {
 		this.qtty = qtty;
 	}
 

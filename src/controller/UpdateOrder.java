@@ -1,32 +1,27 @@
 package controller;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import dao.CartDao;
-import model.Cart;
-import model.Minionuser;
-import model.Product;
+import dao.OrderDao;
+import model.Minionorder;
 
 /**
- * Servlet implementation class ViewCart
+ * Servlet implementation class UpdateOrder
  */
-@WebServlet("/ViewCart")
-public class ViewCart extends HttpServlet {
+@WebServlet("/UpdateOrder")
+public class UpdateOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public ViewCart() {
+    public UpdateOrder() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -42,23 +37,29 @@ public class ViewCart extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String orderId = request.getParameter("orderId");	
+			String status = request.getParameter("status");	
+			if (status == null) {
+				List<Minionorder> orders = OrderDao.getOrder(orderId);
+				request.setAttribute("orders", orders);
+				request.setAttribute("orderId", orderId);
+			} else {
+				List<Minionorder> orders = OrderDao.getOrder(orderId);
+				OrderDao.updateOrderStatus(orders,status);
+				request.setAttribute("message", "Updated Successfully");
+			}
 			
-			HttpSession session = request.getSession();
 			
-			List<Cart> items = CartDao.getCartItems();
-			// set things for shopping
-			//request.setAttribute("items", items);
-			
-			session.setAttribute("items", items);
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp").forward(request, response);
+
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "Something went wrong!!");
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("message", "Something went wrong!!");
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp").forward(request, response);
 		}
 	}
 

@@ -127,7 +127,7 @@
 												<table width="100%">
 												<c:forEach var="items" items="${items}">
 														<tr>
-															<td align="left" colspan="2"><img src="${items.product.produrl}.jpg" /><c:out value="${items.product.prodname}"></c:out> </td>
+															<td align="left" colspan="2"><img src="${items.product.produrl}.jpg" width="200px" height="200px" /><c:out value="${items.product.prodname}"></c:out> </td>
 															
 														</tr>
 														<tr>

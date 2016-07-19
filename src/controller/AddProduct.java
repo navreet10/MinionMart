@@ -2,31 +2,27 @@ package controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import dao.CartDao;
-import model.Cart;
-import model.Minionuser;
+import dao.OrderDao;
+import model.Prodtype;
 import model.Product;
 
 /**
- * Servlet implementation class ViewCart
+ * Servlet implementation class AddProduct
  */
-@WebServlet("/ViewCart")
-public class ViewCart extends HttpServlet {
+@WebServlet("/AddProduct")
+public class AddProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public ViewCart() {
+    public AddProduct() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -42,23 +38,33 @@ public class ViewCart extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String name = request.getParameter("productName");	
+			String desc = request.getParameter("productDesc");	
+			String url = request.getParameter("productUrl");	
+			String price = request.getParameter("productPrice");	
+			String typeId = request.getParameter("typeId");	
+			Prodtype type = OrderDao.getType(typeId);
+				Product product = new Product();
+				product.setProddesc(desc);
+				product.setProdname(name);
+				product.setProdurl(url);
+				product.setProdprice(new BigDecimal(price));
+				product.setProdtype(type);
+				OrderDao.addProduct(product);
+				request.setAttribute("message", "Updated Successfully");
 			
-			HttpSession session = request.getSession();
 			
-			List<Cart> items = CartDao.getCartItems();
-			// set things for shopping
-			//request.setAttribute("items", items);
 			
-			session.setAttribute("items", items);
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp").forward(request, response);
+
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "Something went wrong!!");
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("message", "Something went wrong!!");
-			request.getRequestDispatcher("viewCart.jsp").forward(request, response);
+			request.getRequestDispatcher("admin.jsp").forward(request, response);
 		}
 	}
 

@@ -177,6 +177,7 @@ public class CartDao {
 				order.setOrdername(username + orderid);
 				order.setProduct(cart.getProduct());
 				order.setQtty(cart.getQtty());
+				order.setStatus("New");
 				EntityTransaction trans = em.getTransaction();
 				try {
 					trans.begin();
@@ -251,7 +252,8 @@ public class CartDao {
 				Minionorder order = new Minionorder();
 				order.setOrdername(username + orderid);
 				order.setProduct(wish.getProduct());
-				order.setQtty(1);
+				order.setQtty(1l);
+				order.setStatus("New");
 				EntityTransaction trans = em.getTransaction();
 				try {
 					trans.begin();

@@ -20,7 +20,7 @@ public class Minionorder implements Serializable {
 
 	private String ordername;
 
-	private Long qtty;
+	private long qtty;
 
 	private String status;
 
@@ -48,11 +48,11 @@ public class Minionorder implements Serializable {
 		this.ordername = ordername;
 	}
 
-	public Long getQtty() {
+	public long getQtty() {
 		return this.qtty;
 	}
 
-	public void setQtty(Long qtty) {
+	public void setQtty(long qtty) {
 		this.qtty = qtty;
 	}
 

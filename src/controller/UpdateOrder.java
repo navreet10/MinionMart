@@ -37,14 +37,14 @@ public class UpdateOrder extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String orderId = request.getParameter("orderId");	
+			String ordername = request.getParameter("orderName");	
 			String status = request.getParameter("status");	
 			if (status == null) {
-				List<Minionorder> orders = OrderDao.getOrder(orderId);
+				List<Minionorder> orders = OrderDao.getOrder(ordername);
 				request.setAttribute("orders", orders);
-				request.setAttribute("orderId", orderId);
+				request.setAttribute("orderName", ordername);
 			} else {
-				List<Minionorder> orders = OrderDao.getOrder(orderId);
+				List<Minionorder> orders = OrderDao.getOrder(ordername);
 				OrderDao.updateOrderStatus(orders,status);
 				request.setAttribute("message", "Updated Successfully");
 			}

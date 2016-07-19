@@ -59,9 +59,7 @@ public class loginServlet extends HttpServlet {
 			try {
 
 				String name = request.getParameter("email");
-				System.out.println(name);
 				String password = request.getParameter("password");
-				System.out.println(password);
 				model.Minionuser user = Dataget.getUserByName(name);
 
 				if (Dataget.isValidUser(name, password)) {

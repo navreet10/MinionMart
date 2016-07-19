@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -22,18 +21,20 @@ public class Minionreview implements Serializable {
 
 	private long ishelpful;
 
-	@ManyToOne
-	@JoinColumn(name="PRODID")
-	private Product product;
-
 	@Temporal(TemporalType.DATE)
 	private Date reviewdate;
 
 	private String reviewtext;
 
+	//bi-directional many-to-one association to Minionuser
 	@ManyToOne
 	@JoinColumn(name="USERID")
 	private Minionuser minionuser;
+
+	//bi-directional many-to-one association to Product
+	@ManyToOne
+	@JoinColumn(name="PRODID")
+	private Product product;
 
 	public Minionreview() {
 	}
@@ -52,14 +53,6 @@ public class Minionreview implements Serializable {
 
 	public void setIshelpful(long ishelpful) {
 		this.ishelpful = ishelpful;
-	}
-
-	public Product getProduct() {
-		return this.product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
 	}
 
 	public Date getReviewdate() {
@@ -85,4 +78,13 @@ public class Minionreview implements Serializable {
 	public void setMinionuser(Minionuser minionuser) {
 		this.minionuser = minionuser;
 	}
+
+	public Product getProduct() {
+		return this.product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 }

@@ -18,7 +18,7 @@
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="js/viewCart.js"></script>
+
 
 <!-- Latest compiled JavaScript -->
 <script
@@ -32,10 +32,11 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="css/mycss.css" />
-  <script>
-  $( function() {
-    $( "#accordion" ).accordion();
-  } );
+
+<script>
+   $(document).ready(function(){
+		$( "#accordion" ).accordion();
+  });
   </script>
 <style>
 #draggable {
@@ -94,11 +95,7 @@
 	border-color: #729fcf;
 }
 </style>
-  <script>
-  $( function() {
-    $( "#adminDec" ).accordion();
-  } );
-  </script>
+
 <title>Admin</title>
 </head>
 <body>
@@ -123,125 +120,127 @@
 				</div>
 			</c:if>
 			<div class="row">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-8">
-					<div id="adminDec">
-						<h3>Add Product:</h3>
-						<div>
-							<form id="target" action="AddProduct" method="post">								
-									<div class="form-group">
-										<label for="typeAssgn">Name:</label> <input type="text"
-											name="productName" id="productName" value=""
-											class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="typeAssgn">Description:</label> <input type="text"
-											name="productDesc" id="productDesc" value=""
-											class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="typeAssgn">URL:</label> <input type="text"
-											name="productUrl" id="productUrl" value=""
-											class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="typeAssgn">Price:</label> <input type="text"
-											name="productPrice" id="productPrice"
-											value="" class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="typeAssgn">Price:</label> 
-										<select name="typeId" id="typeId">
-											<c:forEach var="type" items="${types}">
-										        <option value="${type.typeid}">${type.typename}</option>
-										    </c:forEach>
-										</select>
-									</div>
-									<input type="submit" name="submit" id="submit" value="Add">
-								
-							</form>
-						</div>
-						<h3>Edit Products:</h3>
-						<div>
-							<form id="target" action="EditProduct" method="post">
-								<div class="form-group">
-									<label for="typeAssgn">Product ID:</label> <input type="text"
-										name="productId" id="productId" value="${productId}"
-										class="form-control">
-								</div>
-								<input type="submit" name="submit" id="submit"
-									value="View Details">
-								<c:set var="prod" scope="session" value="${product}" />
-								<c:if test="${prod != null}">
-									<div class="form-group">
-										<label for="typeAssgn">Name:</label> <input type="text"
-											name="productName" id="productName" value="${prod.prodname}"
-											class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="typeAssgn">Description:</label> <input type="text"
-											name="productDesc" id="productDesc" value="${prod.proddesc}"
-											class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="typeAssgn">URL:</label> <input type="text"
-											name="productUrl" id="productUrl" value="${prod.produrl}"
-											class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="typeAssgn">Price:</label> <input type="text"
-											name="productPrice" id="productPrice"
-											value="${prod.prodprice}" class="form-control">
-									</div>
-									<input type="submit" name="submit" id="submit" value="Update">
-								</c:if>
-							</form>
-						</div>
+				<div class="col-sm-4">
+					<h3>Add Product:</h3>
+					<div>
+						<form id="target" action="AddProduct" method="post">
+							<div class="form-group">
+								<label for="typeAssgn">Name:</label> <input type="text"
+									name="productName" id="productName" value=""
+									class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="typeAssgn">Description:</label> <input type="text"
+									name="productDesc" id="productDesc" value=""
+									class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="typeAssgn">URL:</label> <input type="text"
+									name="productUrl" id="productUrl" value="" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="typeAssgn">Price:</label> <input type="text"
+									name="productPrice" id="productPrice" value=""
+									class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="typeAssgn">Price:</label> <select name="typeId"
+									id="typeId">
+									<c:forEach var="type" items="${types}">
+										<option value="${type.typeid}">${type.typename}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<input type="submit" name="submit" id="submit" value="Add">
 
-						<h3>Administer Orders:</h3>
-						<div>
-							<form id="target" action="UpdateOrder" method="post">
-								<div class="form-group">
-									<label for="typeAssgn">Order ID:</label> <input type="text"
-										name="orderId" id="orderId" value="${orderId}"
-										class="form-control">
-								</div>
-								<input type="submit" name="submit" id="submit"
-									value="View Details">
-								<c:set var="order" scope="session" value="${orders}" />
-								<c:if test="${order != null}">
-									<h3>Order Details:</h3>
-									<c:forEach var="order" items="${orders}">
-										<div class="form-group">
-											<label for="typeAssgn">Name:</label>
-											<c:out value="${order.product.prodname}" />
-										</div>
-										<div class="form-group">
-											<label for="typeAssgn">Description:</label>
-											<c:out value="${order.product.proddesc}" />
-										</div>
-										<div class="form-group">
-											<label for="typeAssgn">Price:</label>
-											<c:out value="${order.product.prodprice}" />
-										</div>
-										<img src="${order.product.produrl }.jpg" width="200px"
-											height="200px"></img>								
-										<div class="form-group">
-											<label for="typeAssgn">Status:</label> <input type="text"
-												name="status" id="status" value="${order.status}"
-												class="form-control">
-										</div>
-										</c:forEach>
-									<input type="submit" name="submit" id="submit" value="Update">
-								</c:if>
-							</form>
-						</div>
-
+						</form>
 					</div>
-					<div class="col-sm-2"></div>
+				</div>
+				<div class="col-sm-4">
+					<h3>Edit Products:</h3>
+					<div>
+						<form id="target" action="EditProduct" method="post">
+							<div class="form-group">
+								<label for="typeAssgn">Product ID:</label> <input type="text"
+									name="productId" id="productId" value="${productId}"
+									class="form-control">
+							</div>
+							<input type="submit" name="submit" id="submit"
+								value="View Details">
+							<c:set var="prod" scope="session" value="${product}" />
+							<c:if test="${prod != null}">
+								<div class="form-group">
+									<label for="typeAssgn">Name:</label> <input type="text"
+										name="productName" id="productName" value="${prod.prodname}"
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="typeAssgn">Description:</label> <input type="text"
+										name="productDesc" id="productDesc" value="${prod.proddesc}"
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="typeAssgn">URL:</label> <input type="text"
+										name="productUrl" id="productUrl" value="${prod.produrl}"
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="typeAssgn">Price:</label> <input type="text"
+										name="productPrice" id="productPrice"
+										value="${prod.prodprice}" class="form-control">
+								</div>
+								<input type="submit" name="submit" id="submit" value="Update">
+							</c:if>
+						</form>
+					</div>
+
+
+
+				</div>
+
+				<div class="col-sm-4">
+					<h3>Administer Orders:</h3>
+					<div>
+						<form id="target" action="UpdateOrder" method="post">
+							<div class="form-group">
+								<label for="typeAssgn">Order ID:</label> <input type="text"
+									name="orderName" id="orderName" value="${orderName}"
+									class="form-control">
+							</div>
+							<input type="submit" name="submit" id="submit"
+								value="View Details">
+							<c:set var="order" scope="session" value="${orders}" />
+							<c:if test="${order != null}">
+								<h3>Order Details:</h3>
+								<c:forEach var="order" items="${orders}">
+									<div class="form-group">
+										<label for="typeAssgn">Name:</label>
+										<c:out value="${order.product.prodname}" />
+									</div>
+									<div class="form-group">
+										<label for="typeAssgn">Description:</label>
+										<c:out value="${order.product.proddesc}" />
+									</div>
+									<div class="form-group">
+										<label for="typeAssgn">Price:</label>
+										<c:out value="${order.product.prodprice}" />
+									</div>
+									<img src="${order.product.produrl }.jpg" width="200px"
+										height="200px"></img>
+									<div class="form-group">
+										<label for="typeAssgn">Status:</label> <input type="text"
+											name="status" id="status" value="${order.status}"
+											class="form-control">
+									</div>
+								</c:forEach>
+								<input type="submit" name="submit" id="submit" value="Update">
+							</c:if>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>

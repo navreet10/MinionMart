@@ -119,8 +119,8 @@
 					<div class="col-sm-8">
 					<c:set var="prods" scope="session" value="${items}" />
 				<c:if test="${prods != null}">
-					<h3>Items in cart:</h3>
-							<form id="cart" action="Checkout" method="post">
+					<h3>Order Name: ${ordername}</h3>
+							<form id="cart" action="OrderServlet" method="post">
 							<div>
 							<div class="panel-group">
 										
@@ -132,10 +132,10 @@
 												
 												<div class="panel-body">
 						
-												<table width="100%">
+												<table width="100%" border="0" class="table">
 												
 														<tr>
-															<td align="left" colspan="2">Shipping Address: </td>
+															<td align="left" colspan="2" Style="font-weight:bold">Shipping Address: </td>
 															
 														</tr>
 														<tr>
@@ -151,7 +151,7 @@
 															
 														</tr>
 														<tr>
-															<td align="left" colspan="2">Billing Address: </td>
+															<td align="left" colspan="2" Style="font-weight:bold">Billing Address: </td>
 															
 														</tr>
 														<tr>
@@ -186,8 +186,8 @@
 															
 														</tr>
 														<tr>
-															<td align="right">Quantity: ${items.qtty}</td>
-															<td align="left">Price: ${items.product.prodprice}</td>															
+															<td align="left">Quantity: ${items.qtty}</td>
+															<td align="right">Price: ${items.product.prodprice}</td>															
 														</tr>
 														
 														</c:forEach>
@@ -199,27 +199,31 @@
 												</div>
 												<div class="panel-body">
 						
-												<table width="100%">
+												<table width="100%" Style=" border-color:white" class="table" >
 												
 														<tr>
-															<td align="left" colspan="2">items: </td>
+															<td align="right" colspan="2">Items: $ ${price}</td>
 															
 														</tr>
 														<tr>
-															<td align="left" colspan="2">${items.product.proddesc}</td>
+															<td align="right" colspan="2">Shipping: $ ${shippingprice} </td>
 															
 														</tr>
 														<tr>
-															<td align="right">Quantity: ${items.qtty}</td>
-															<td align="left">Price: ${items.product.prodprice}</td>															
+															<td align="right" colspan="2">Tax: $ ${tax} </td>
+															
 														</tr>
-														
+														<tr>
+															<td align="right" colspan="2">Total: $ ${total} </td>
+															
+														</tr>
+																
 														
 													</table>													
 												</div>
 												
 												<div class="panel-footer"> 
-												<div align="right"> <input type="submit" id='checkout' name='checkout' value="Checkout">
+												<div align="right"> <input type="submit" id='sendemail' name='sendemail' value="SendEmail">
 												
 												</div>
 												</div>

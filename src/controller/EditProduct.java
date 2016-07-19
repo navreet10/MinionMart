@@ -49,7 +49,7 @@ public class EditProduct extends HttpServlet {
 				product.setProddesc(request.getParameter("productDesc"));
 				product.setProdname(request.getParameter("productName"));
 				product.setProdurl(request.getParameter("productUrl"));
-				product.setProdprice(new BigDecimal(request.getParameter("productPrice")));
+				product.setProdprice(Float.parseFloat((request.getParameter("productPrice"))));
 				OrderDao.updateProduct(product);
 				request.setAttribute("message", "Updated Successfully");
 			}

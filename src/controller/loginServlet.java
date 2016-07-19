@@ -54,16 +54,25 @@ public class loginServlet extends HttpServlet {
 
 		if (request.getParameter("register") != null) {
 			request.getRequestDispatcher("/Register.jsp").forward(request, response);
-		} else {
+		} 
+		else if(request.getParameter("Forgotpassword")!=null)
+		{
+			String username = request.getParameter("email");
+			model.Minionuser user = Dataget.getUserByName(username);
+			
+			
+		}
+				
+		else {
 
 			try {
 
 				String name = request.getParameter("email");
-				System.out.println(name);
 				String password = request.getParameter("password");
+				System.out.println(name);
 				System.out.println(password);
 				model.Minionuser user = Dataget.getUserByName(name);
-
+				
 				if (Dataget.isValidUser(name, password)) {
 					List<model.Prodtype> types = Dataget.getProdtype();
 					List<model.Product> Products = Dataget.getProducts();

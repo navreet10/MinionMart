@@ -151,15 +151,18 @@ public class CartDao {
 		return items;
 	}
 
-	public static long order(List<Cart> cartUpdated, String username) {
+
+
+	public static String order(List<Cart> cartUpdated, String username) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		long orderid=-1;
+		long orderid = 0;
+
 		try {
 			String qString = "select b from Userorder b where b.minionuser.userid = "
 					+ "(select a.userid from Minionuser a where a.username = :username) ";
 			TypedQuery<Userorder> query = em.createQuery(qString, Userorder.class);
 			query.setParameter("username", username);
-			
+
 			List<Userorder> usors = query.getResultList();
 			 Userorder userorder = null;
 			if (usors == null || usors.size()==0) {
@@ -187,7 +190,7 @@ public class CartDao {
 					trans.rollback();
 				}
 			}
-			userorder.setOrdercount(new BigDecimal(orderid));
+			userorder.setOrdercount(orderid);
 			EntityTransaction trans = em.getTransaction();
 			try {
 				trans.begin();
@@ -204,7 +207,9 @@ public class CartDao {
 		} finally {
 			em.close();
 		}
-		return orderid;
+
+		return username + orderid;
+
 	}
 
 	public static void updateCart() {
@@ -241,7 +246,7 @@ public class CartDao {
 			if (usors == null || usors.size()==0) {
 				userorder = new Userorder();
 				userorder.setMinionuser(Dataget.getUserByName(username));
-				userorder.setOrdercount(new BigDecimal(1));
+				userorder.setOrdercount(1);
 				orderid = 1;
 			} else {
 				userorder = usors.get(0);
@@ -263,7 +268,7 @@ public class CartDao {
 					trans.rollback();
 				}
 			}
-			userorder.setOrdercount(new BigDecimal(orderid));
+			userorder.setOrdercount(orderid);
 			EntityTransaction trans = em.getTransaction();
 			try {
 				trans.begin();

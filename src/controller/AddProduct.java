@@ -48,7 +48,7 @@ public class AddProduct extends HttpServlet {
 				product.setProddesc(desc);
 				product.setProdname(name);
 				product.setProdurl(url);
-				product.setProdprice(new BigDecimal(price));
+				product.setProdprice(Float.parseFloat(price));
 				product.setProdtype(type);
 				OrderDao.addProduct(product);
 				request.setAttribute("message", "Updated Successfully");

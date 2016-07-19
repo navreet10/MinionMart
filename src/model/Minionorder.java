@@ -21,6 +21,11 @@ public class Minionorder implements Serializable {
 
 	private String ordername;
 
+
+	
+
+	//bi-directional many-to-one association to Product
+
 	@ManyToOne
 	@JoinColumn(name="PRODID")
 	private Product product;
@@ -48,6 +53,7 @@ public class Minionorder implements Serializable {
 		this.ordername = ordername;
 	}
 
+
 	public Product getProduct() {
 		return this.product;
 	}
@@ -55,6 +61,7 @@ public class Minionorder implements Serializable {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 
 	public long getQtty() {
 		return this.qtty;

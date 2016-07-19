@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function(){
-	$( "#admin" ).accordion();
+	$( "#adminDec" ).accordion();
 /*	$('.delete').click(function (event) {
 		 var idItem = $(this).attr('id');
 		 var id = idItem.substring(6);

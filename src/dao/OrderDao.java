@@ -32,14 +32,14 @@ public class OrderDao {
 		
 	}
 
-	public static List<Minionorder> getOrder(String orderId) {
+	public static List<Minionorder> getOrder(String ordername) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        String qString = "select b from Minionorder b where b.orderid =:orderId";
+        String qString = "select b from Minionorder b where b.ordername =:ordername";
         
         List<Minionorder> orders = null;
         try{
             TypedQuery<Minionorder> query = em.createQuery(qString,Minionorder.class);
-            query.setParameter("orderId", Long.parseLong(orderId));
+            query.setParameter("ordername", ordername);
             orders = query.getResultList();
         }catch (Exception e){
             e.printStackTrace();

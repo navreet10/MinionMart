@@ -147,7 +147,7 @@
 													</table>													
 												</div>
 												<div class="panel-footer"> 
-												<div align="right"> <input type="submit" id='checkout' name='checkout' value="Checkout">
+												<div align="right"> <input type="submit" id='checkout' name='checkout' value="PlaceOrder">
 												
 												</div>
 												</div>

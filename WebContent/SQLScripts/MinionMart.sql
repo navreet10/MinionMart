@@ -48,7 +48,7 @@ prodId integer primary key,
 prodname varchar2(50) not null,
 proddesc varchar2(200) not null,
 produrl varchar2(100) not null,
-prodprice number not null,
+prodprice integer not null,
 typeid integer not null,
 CONSTRAINT fk_prod_typeid FOREIGN KEY (typeid) references prodtype(typeid)
 );

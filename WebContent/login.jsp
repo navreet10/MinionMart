@@ -21,10 +21,10 @@
 <input type ="hidden" name="secertvalue" id="secretvalue" value="loginForm"></input></div>
 <br>
 <div align="center"><input type="submit" name="login" id="submit" value="Log in" class="submit"></input>
+<input type="submit" name="register" id="submit" value="Register"></input>
 
-<input type="submit" name="Forgotpassword" id="Forgotpassword" value="Forgot password"></input>
-<input type="submit" name="register" id="submit" value="Register"></input></div>
-
+</div>
+<div align="center"><input type="submit" name="Forgotpassword" id="Forgotpassword" value="Forgot password"></input></div>
 </form>
 </div>
 </div>
